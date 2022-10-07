@@ -2,7 +2,10 @@ const path = require('path');
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 
-require('@electron/remote/main').initialize();
+require('update-electron-app')({
+  repo: 'duongpham17/autoclicker-pro',
+  updateInterval: '1 hour',
+})
 
 const createWindow = () => {
 
