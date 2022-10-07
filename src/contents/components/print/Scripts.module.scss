@@ -1,0 +1,52 @@
+.container{
+    overflow-y: auto;
+
+    .element{
+        border-left: 2px solid var(--clr-light);
+        border-right: 2px solid var(--clr-light);
+        margin: 0.5rem 0;
+        padding: 0.3rem 0.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &:hover{
+            border-color: var(--clr-main) ;
+        }
+
+        .index{
+            margin-right: 0.5rem;
+            font-weight: 200;
+        }
+
+        .information{
+            width: 100%;
+            margin-right: 0.5rem;
+            small{
+                font-weight: 200;
+            }
+
+            p{
+                display: flex;
+                justify-content: space-between
+            };
+        }
+
+        .information:hover + .otherActions{
+            display: block;
+        }
+
+        .otherActions{
+            display: none;
+
+            &:hover{
+                display: block;
+            }
+        }
+    }
+
+    .selected{
+        border-color: var(--clr-main);
+    }
+}

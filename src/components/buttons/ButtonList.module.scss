@@ -1,0 +1,42 @@
+.container{
+    width: 100%;
+
+    button{
+        border-bottom: 2px solid var(--clr-light);
+        padding: 0.5rem 0;
+        width: 100%;
+        transition: 0.2s ease-in-out;
+
+        &:hover{
+            border-color: var(--clr-main);
+        }
+
+        .single{
+            text-align: center;
+        }
+
+        .double{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+
+            svg, span{
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+    }
+
+    .black{
+        border-color: var(--clr-black);
+    }
+    .red{
+        border-color: var(--clr-red);
+    }
+    .blue{
+        border-color: var(--clr-blue);
+    }
+}

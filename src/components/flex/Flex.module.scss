@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.sticky{
+    position: sticky;
+    top: 0.5rem;
+}
+
+.evenly{
+    justify-content: space-evenly;
+}
+
+.between{
+    justify-content: space-between;
+}
+
+.around{
+    justify-content: space-between;
+}

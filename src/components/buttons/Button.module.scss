@@ -1,0 +1,67 @@
+.container{
+    width: 100%;
+
+    button{
+        border: 1px solid transparent;
+        padding: 0.5rem;
+        width: 100%;
+        transition: 0.2s ease-in-out;
+        border-radius: 5px;
+        background-color: white;
+        min-width: 50px;
+
+        &:hover{
+            border-color: var(--clr-main);
+        }
+        
+        .single{
+            text-align: center;
+        }
+
+        .double{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+
+            svg, span{
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+            }
+        
+        }
+
+    }
+
+    .black, .red, .blue{
+        p{
+            color: white;
+        }
+    }
+    .blank{
+        border-color: transparent;
+        cursor:default;
+        &:hover{
+            border-color: transparent ;
+        }
+    }
+    .black{
+        background-color: var(--clr-black);
+    }
+    .red{
+        background-color: var(--clr-red);
+        border-color: var(--clr-light);
+    }
+    .blue{
+        background-color: var(--clr-blue);
+        border-color: var(--clr-light);
+    }
+    .default{
+        border-color: var(--clr-light);
+    }
+    .selected{
+        border-color: var(--clr-main);
+    }
+
+}

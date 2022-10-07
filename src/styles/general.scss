@@ -1,0 +1,17 @@
+/* General use on all pages */
+.hidden{
+    display: none;
+}
+.center{
+    margin: auto;
+    text-align: center;
+}
+.cover-transparent{
+    position: fixed;
+    width: 100%;
+    background-color: transparent;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+}

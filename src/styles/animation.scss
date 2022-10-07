@@ -1,0 +1,54 @@
+/* Loading */ 
+@mixin Loading($width, $height, $border) {
+    width: $width;
+    height: $height;
+    border-radius: 50%;
+    border: $border solid var(--clr-main);
+    border-top-color: transparent;
+    animation: spinner 1s linear infinite;
+  }
+  @keyframes spinner {
+    to{
+      transform: rotate(360deg);
+    }
+}
+
+.loading{
+  @include Loading(60px, 60px, 4px);
+  margin: 8rem auto;
+}
+.loading-30{
+  @include Loading(30px, 30px, 3px);
+}
+.loading-20{
+  @include Loading(20px, 20px, 2px);
+}
+.loading-15{
+  @include Loading(15px, 15px, 2px);
+}
+.loading-10{
+  @include Loading(10px, 10px, 2px);
+}
+
+
+.fade{
+  animation: fade 2s linear infinite;
+
+  @keyframes fade{
+    0%{
+        opacity: 0.5;
+    }
+    25% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+    75%{
+        opacity: 0.7;
+    }
+    100%{
+        opacity: 0.5;
+    }
+  }
+}

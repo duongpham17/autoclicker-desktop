@@ -1,0 +1,22 @@
+.container{
+    button{
+        border-bottom: 1px solid var(--clr-light);
+        padding: 0.5rem;
+        width: 100%;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &:hover{
+            border-color: var(--clr-main);
+        }
+    }
+    button:hover small{
+        display: block;
+    }
+    small{
+        display: none;
+        font-weight: 200;
+    }
+}

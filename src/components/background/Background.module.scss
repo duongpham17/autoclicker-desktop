@@ -1,0 +1,16 @@
+.default{
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.light{
+    background-color: rgba(236, 236, 236, 0.35);
+}
+
+.dark{
+    background-color: var(--clr-dark);
+}
+
+.black{
+    background-color: var(--clr-black);
+}

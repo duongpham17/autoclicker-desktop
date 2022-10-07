@@ -1,0 +1,57 @@
+.container{
+
+    margin-top: 0.5rem;
+
+    .edit{
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+    .plain{
+        padding: 1rem 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .element{
+        display: flex;
+        justify-content: space-between;
+
+        &:hover{
+            border-color: var(--clr-main);
+        }
+
+        &:hover .options, .options:hover{
+            display: block;
+        }
+
+        .index{
+            margin-right: 0.5rem;
+            font-weight: 200;
+        }
+
+        .information{
+            width: 100%;
+            p{
+                white-space: pre-line;
+            }
+            img{
+                background-color: var(--clr-light);
+                width: 100%;
+                height: 300px;
+            }
+        }
+        .options{
+            display: none;
+            margin-left: 0.5rem;
+
+            button{
+                padding: 0.3rem;
+            }
+        }
+    }
+
+    .selected{
+        border-color: var(--clr-main);
+    }
+
+}

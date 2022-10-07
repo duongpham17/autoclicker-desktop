@@ -1,0 +1,42 @@
+.container{
+
+    p, button, span, svg{
+        color: white;
+    }
+
+    .map{
+        background-color: black;
+        margin-bottom: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid transparent;
+
+        &:hover{
+            border: 1px solid var(--clr-main);
+        }
+
+        .element{
+            cursor: pointer;
+            text-align: center;
+            padding: 0.5rem;
+
+            p{
+                font-weight: 200;
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.9rem;
+            }
+
+            img{
+                width: 120px;
+                height: 120px;
+            }
+
+            &:hover{
+                *{
+                    color: var(--clr-main);
+                }
+            }
+        }
+    }
+
+}

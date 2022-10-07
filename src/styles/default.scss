@@ -1,0 +1,48 @@
+/* This file should not contain any color changes*/
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    font-family: "Gill Sans", sans-serif;
+    min-height: 100vh;
+    min-width: 320px;
+}    
+
+a, button, input, li, textarea, svg, div, ul, li{
+    font-family: "Gill Sans", sans-serif;
+    text-decoration: none;
+    list-style-type: none;
+    outline: none;
+    border: none;
+    background: none;
+    resize: none;
+    font-size: 1rem;
+    box-sizing: border-box;
+    color: #555555;
+}
+
+a, button{
+    cursor: pointer;
+}
+
+img{
+    object-fit: cover;
+}
+
+input{
+    &::-webkit-inner-spin-button, &::-webkit-outer-spin-button{
+        -webkit-appearance: none;
+        margin: 0;
+        display: none;
+    }
+    [type=number] {
+        -moz-appearance: textfield;
+    }
+}
+
+select{
+    outline: none;
+}

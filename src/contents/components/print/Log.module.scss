@@ -1,0 +1,57 @@
+.container{
+    max-height: 100%;
+    overflow-y: auto;
+    margin-top: 0.5rem;
+
+    .element{
+        border-left: 2px solid white;
+        border-right: 2px solid white;
+        padding: 0.5rem;
+        margin: 0.5rem 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &:hover{
+            border-left-color: var(--clr-main);
+            border-right-color: var(--clr-main);
+        }
+
+        .information{
+            width: 100%;
+            p{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: white;
+                
+                small{
+                    font-weight: 200;
+                    color: var(--clr-light-transparent);
+                }
+            }
+        }
+    }
+    .element:first-child{
+        border-color: var(--clr-main);
+    }
+    .element:hover .action{
+        display: block;
+    }
+    .action{
+        display: none;
+
+        button{
+            padding: 0.2rem;
+            background-color: var(--clr-main);
+            color: white;
+            margin-left: 0.5rem;
+            border-radius: 5px;
+
+            &:hover{
+                opacity: 0.5;
+            }
+        }
+    }
+}
