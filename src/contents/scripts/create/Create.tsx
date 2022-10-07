@@ -8,7 +8,7 @@ const Create = () => {
     const c = useContext(Context);
 
     return (
-        <Button onClick={() => c.onSelectScript("create")} label1="Create" label2="+" color="blue" style={{"marginBottom": "0.5rem"}} />
+        <Button onClick={() => c.onSelectScript("create")} label1="Create" label2="+" color="black" style={{"marginBottom": "0.5rem"}} />
     )
 }
 

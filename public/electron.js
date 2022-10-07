@@ -1,9 +1,11 @@
 const path = require('path');
-
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 
-function createWindow() {
+const createWindow = () => {
+
+  //build file for production path.join(__dirname, 'preload.js')
+
   // Create the browser window.
   const win = new BrowserWindow({
     width: 600,
@@ -12,6 +14,7 @@ function createWindow() {
     minHeight:500,
     maxWidth: 700,
     webPreferences: {
+      enableRemoteModule: true,
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
     },
