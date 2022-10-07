@@ -2,6 +2,8 @@ const path = require('path');
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 
+require('@electron/remote/main').initialize();
+
 const createWindow = () => {
 
   //build file for production path.join(__dirname, 'preload.js')
