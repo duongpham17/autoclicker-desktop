@@ -20,4 +20,8 @@ export const scriptInitialState: Script = {
     x_coord: 0,
     y_coord: 0,
     loop_remainder: 0,
+    words: "",
+    mouse_click: "left",
+    mouse_toggle: "down",
+    events: "empty"
 }

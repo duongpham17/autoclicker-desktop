@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Script, ScriptDataTypes } from 'contents/@types';
 import { scriptInitialState } from 'contents/@states';
-import { actions } from './ActionsList';
+import { RobotEvents } from 'contents/@robot/RobotEvents';
 import { v4 as uuidv4 } from 'uuid';
 import { updateArrayObject, removeArrayObject, readFromClipboard} from 'utils';
 
-import PrintScripts from 'contents/components/print/Scripts';
+import PrintScripts from 'contents/@components/print/Scripts';
 import Background from 'components/background/Background';
 import Flex from 'components/flex/Flex';
 import Button from 'components/buttons/Button'
@@ -30,8 +30,8 @@ const Build = ({values, onSetValue, viewing}: Props) => {
 
     const [scriptActions, setScriptActions] = useState<Script>(scriptInitialState);
 
-    const onSelectScript = (k: string, value: number | string) => {
-        setScriptActions(state => ({...state, [k]: value }));
+    const onSelectScript = (updateobject: Partial<Script>) => {
+        setScriptActions(state => ({...state, ...updateobject}));
     };
 
     const onChange = (e: any) => {
@@ -67,6 +67,7 @@ const Build = ({values, onSetValue, viewing}: Props) => {
 
     const onDeleteScript = (index: number) => {
         const newScript = removeArrayObject(index, values.script);
+        console.log(newScript);
         onSetValue(({script: newScript}));
     };
 
@@ -94,35 +95,58 @@ const Build = ({values, onSetValue, viewing}: Props) => {
         <>
             <Background>
 
-                <Select label1='Select a script' items={actions} selected={scriptActions.robot} style={{"marginBottom": "0.5rem"}}>
-                    {(actions) => 
-                        actions.map(el => 
-                            <List value={el.name} hover={el.description} onClick={() => onSelectScript("robot", el.robot)} key={el.id} />
+                <Select label1='Select a script' items={RobotEvents} selected={scriptActions.robot} style={{"marginBottom": "0.5rem"}}>
+                    {(RobotEvents) => 
+                        RobotEvents.map(el => 
+                            <List value={el.name} hover={el.description} onClick={() => onSelectScript({robot: el.robot, events: el.events})} key={el.id} />
                         )
                     }
                 </Select>
 
                 <Flex>
-                    <Input label1="Script name" type="text" placeholder='...' name="name" value={scriptActions.name || ""} onChange={onChange}  />
+                    <Input label1="Script name" type="text" placeholder='...' name="name" value={scriptActions.name || ""} onChange={onChange} />
                     <Input label1="Start in ( s )" type="number" placeholder='seconds' name="start" value={scriptActions.start || ""} onChange={onChange} />
                     <Input label1="Start at x loop" type="number" placeholder='x' name="loop_remainder" value={scriptActions.loop_remainder || ""} onChange={onChange}  />
                 </Flex>
+
+                {scriptActions.events === "click" && 
+                    <Flex>
+                        <Button label1="Left click" onClick={() => onSelectScript({mouse_click: "left"})} selected={scriptActions.mouse_click === "left"} />
+                        <Button label1="Middle click" onClick={() => onSelectScript({mouse_click: "middle"})} selected={scriptActions.mouse_click === "middle"}/>
+                        <Button label1="Right click" onClick={() => onSelectScript({mouse_click: "right"})} selected={scriptActions.mouse_click === "right"} />
+                    </Flex>
+                }
+
+                {scriptActions.events === "toggle" && 
+                    <Flex>
+                        <Button label1="Down toggle" onClick={() => onSelectScript({mouse_toggle: "down"})} selected={scriptActions.mouse_toggle === "down"}/>
+                        <Button label1="Up toggle" onClick={() => onSelectScript({mouse_toggle: "up"})} selected={scriptActions.mouse_toggle === "up"} />
+                    </Flex>
+                }
                 
-                {scriptActions.robot === "moveMouse" && 
+                {scriptActions.events === "move" && 
                     <Flex onContextMenu={onPasteCoord}>
                         <Input label1="Move mouse in X axis" type="number" placeholder='number' name="x_coord" value={scriptActions.x_coord || ""} onChange={onChange}  />
                         <Input label1="Move mouse in Y axis" type="number" placeholder='number' name="y_coord" value={scriptActions.y_coord || ""} onChange={onChange} />
                     </Flex>
                 }
 
-                {(scriptActions.robot === "keyTap" || scriptActions.robot === "keyToggle") && 
+                {scriptActions.events === "keyboard" &&
                     <Flex>
-                        <Input label1="Keyboard key" type="text" placeholder='key' name="keyboard" value={scriptActions.keyboard || ""} onChange={onChange} />
+                        <Input label1="Keyboard key" label2={<a href={"http://robotjs.io/docs/syntax#keys"} target="_blank" rel="noreferrer">( keys )</a>} 
+                            type="text" placeholder='key' name="keyboard" value={scriptActions.keyboard || ""} onChange={onChange} 
+                        />
+                    </Flex> 
+                }        
+
+                {scriptActions.events === "typing" &&
+                    <Flex>
+                        <Input label1="Words to be typed" type="text" placeholder='...' name="words" value={scriptActions.words || ""} onChange={onChange} />
                     </Flex> 
                 }        
 
                 {scriptActions.robot &&
-                    <Button label1={!edit.selected ? "Add script" : "Update Script"} onClick={!edit.selected ? onAddScript : onEditScript} color="black" />
+                    <Button label1={!edit.selected ? "Add script" : "Update Script"} onClick={!edit.selected ? onAddScript : onEditScript} color="black" style={{"margin" : "0.5rem 0"}} />
                 }
             </Background>
 

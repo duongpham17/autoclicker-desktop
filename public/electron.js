@@ -4,7 +4,7 @@ const isDev = require('electron-is-dev');
 
 require('update-electron-app')({
   repo: 'duongpham17/autoclicker-pro',
-  updateInterval: '5 minutes',
+  updateInterval: '2 hour',
 })
 
 const createWindow = () => {

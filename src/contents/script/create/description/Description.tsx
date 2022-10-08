@@ -7,7 +7,7 @@ import Background from 'components/background/Background';
 import File from 'components/inputs/File';
 import Button from 'components/buttons/Button';
 import Textarea from 'components/inputs/Textarea';
-import ScriptDescription from 'contents/components/description/Description';
+import ScriptDescription from 'contents/@components/description/Description';
 
 interface Props {
     values: ScriptDataTypes,

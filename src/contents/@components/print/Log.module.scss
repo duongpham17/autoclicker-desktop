@@ -2,7 +2,7 @@
     max-height: 100%;
     overflow-y: auto;
     margin-top: 0.5rem;
-
+    padding-bottom: 12rem;
     .element{
         border-left: 2px solid white;
         border-right: 2px solid white;
@@ -54,4 +54,8 @@
             }
         }
     }
+}
+
+.padding{
+    padding-right: 0.3rem;
 }

@@ -2,7 +2,6 @@ import styles from './Mouse.module.scss';
 import {useState} from 'react';
 import {preload} from 'third-party/electron';
 import {copyToClipboard} from 'utils';
-
 import Button from 'components/buttons/Button';
 
 const Mouse = () => {

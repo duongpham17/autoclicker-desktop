@@ -1,4 +1,4 @@
-import { ScriptDataTypes } from './@types';
+import { ScriptDataTypes } from 'contents/@types';
 
 const autoclick: ScriptDataTypes = {
     id: "prebuilt-script-id-1",
@@ -13,10 +13,10 @@ const autoclick: ScriptDataTypes = {
     script:[
         {
             id: "script-id-1",
-            name: "Clicked",
+            name: "Click",
             start: 1,
             robot: "mouseClick",
-            move: null,
+            mouse_click: "left"
         },
     ]
 }

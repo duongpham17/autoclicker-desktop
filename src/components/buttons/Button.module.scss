@@ -34,8 +34,8 @@
 
     }
 
-    .black, .red, .blue{
-        p{
+    .black, .dark, .red, .blue{
+        p, svg, span{
             color: white;
         }
     }
@@ -55,6 +55,10 @@
     }
     .blue{
         background-color: var(--clr-blue);
+        border-color: var(--clr-light);
+    }
+    .dark{
+        background-color: var(--clr-dark);
         border-color: var(--clr-light);
     }
     .default{

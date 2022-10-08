@@ -4,10 +4,10 @@ import {copyToClipboard} from 'utils';
 
 import useOpen from 'hooks/useOpen';
 
-import Scripts from 'contents/components/print/Scripts';
+import Scripts from 'contents/@components/print/Scripts';
 import Flex from 'components/flex/Flex';
 import Button from 'components/buttons/Button';
-import ScriptDescription from 'contents/components/description/Description';
+import ScriptDescription from 'contents/@components/description/Description';
 import SideWindow from 'components/sideWindow/SideWindow';
 
 const Built = () => {
@@ -21,7 +21,7 @@ const Built = () => {
 
             <Flex sticky style={{"marginBottom": "0.5rem"}}>
 
-                <Button label1={c.intervalId ? "STOP" : "START"} onClick={c.intervalId ? c.onStopScript : c.onStartScript} color="black" />
+                <Button label1={c.intervalId ? "STOP" : "START"} onClick={() => c.intervalId ? c.onStopScript("stop") : c.onStartScript()} color="black" />
 
                 <SideWindow>
                     {c.script.build !== "default" && <Button label1="Edit" onClick={() => c.script && c.onSelectScript("edit", c.script)} color="blue" />}

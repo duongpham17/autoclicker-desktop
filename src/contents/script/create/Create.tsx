@@ -1,5 +1,5 @@
 import {scriptDataInitialState} from 'contents/@states';
-import React, {useContext, useState, Dispatch, SetStateAction} from 'react';
+import React, {useContext, useState, Dispatch, SetStateAction, useEffect, useMemo} from 'react';
 import {Context} from 'contents/useContentsContext';
 import {v4 as uuidv4} from 'uuid';
 import {ScriptDataTypes} from 'contents/@types';
@@ -34,11 +34,14 @@ const Create = () => {
 
     const [viewing, setViewing] = useState<"script" | "description">("script");
 
-    const auto_generate_initialstate: ScriptDataTypes = {...scriptDataInitialState, id: uuidv4(), action: "create"};
-
-    const initialState = script || auto_generate_initialstate;
+    const initialState: ScriptDataTypes = useMemo(() => ({...scriptDataInitialState, id: uuidv4(), action: "create"}), []);
 
     const {onSubmit, values, onChange, errors, setValues, onClear, onSetValue, edited} = useForm(initialState, callback, Valiation);
+
+    useEffect(() => {
+        if(script?.action === "edit") setValues(script);
+        if(script?.action === "create") setValues(initialState)
+    }, [script, setValues, initialState]);
 
     const onSetScripts = (newScript: ScriptDataTypes): void => {
         const parased_data: ScriptDataTypes[] = localStorageGet("scripts");
@@ -92,7 +95,7 @@ const Create = () => {
     };
 
     const onClearScript = () => {
-        onClear(auto_generate_initialstate);
+        onClear(initialState);
     };
 
     const onImportScript = async () => {

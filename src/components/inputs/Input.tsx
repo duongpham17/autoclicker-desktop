@@ -4,7 +4,7 @@ import React from 'react';
 interface Props extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
     color?: "black",
     label1?: string | number, 
-    label2?: string | number,
+    label2?: string | number | React.ReactNode,
     smallLabelColor?: "red" | "none",
 };
 

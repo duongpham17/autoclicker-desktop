@@ -26,7 +26,7 @@ const Log = ({data, onActionLog, onActionLogLabel = "copy", onActionLogLabelClic
 
     return ( 
         !!data.length ?
-            <div className={styles.container}>
+            <div className={`${styles.container} ${data.length >= 10 && styles.padding}`}>
                 {data.map((el, index) => 
                     <div key={index} className={styles.element} onClick={() => onAction(index, el.log)}>
 

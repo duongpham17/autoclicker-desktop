@@ -1,28 +1,32 @@
 import {createContext, ReactNode, useEffect, useState, useCallback, Dispatch, SetStateAction} from 'react';
 import {ScriptDataTypes, PrintActions, Script, Action} from './@types';
 import {scriptDataInitialState} from './@states';
-import {preload} from 'third-party/electron';
-import {prebuilt} from 'contents/PrebuiltScripts';
+import {prebuilt} from 'contents/@robot/PrebuiltScripts';
+import {RobotActions} from './@robot/RobotEvents';
 
 export interface PropsTypes {
-  script: ScriptDataTypes | null,
-  setScript: Dispatch<SetStateAction<ScriptDataTypes>>,
-  scripts: ScriptDataTypes[],
-  setScripts: Dispatch<SetStateAction<ScriptDataTypes[]>>,
-  intervalId: any,
-  setIntervalId: Dispatch<SetStateAction<any>>,
-  print: PrintActions[],
-  setPrint: Dispatch<SetStateAction<PrintActions[]>>
-  looped: string,
-  setLooped: Dispatch<SetStateAction<string>>,
-  onClear: () => void,
-  onStartScript: () => void,
-  onStopScript: () => void,
-  onSelectScript: (scriptType: Action, script?: ScriptDataTypes) => void,
+    start: "start" | "pause" | "stop" | null,
+    setStart: Dispatch<SetStateAction<"start" | "pause" | "stop" | null>>,
+    script: ScriptDataTypes | null,
+    setScript: Dispatch<SetStateAction<ScriptDataTypes>>,
+    scripts: ScriptDataTypes[],
+    setScripts: Dispatch<SetStateAction<ScriptDataTypes[]>>,
+    intervalId: any,
+    setIntervalId: Dispatch<SetStateAction<any>>,
+    print: PrintActions[],
+    setPrint: Dispatch<SetStateAction<PrintActions[]>>
+    looped: string,
+    setLooped: Dispatch<SetStateAction<string>>,
+    onClear: () => void,
+    onStartScript: () => void,
+    onStopScript: (on?: "stop" | "pause") => void,
+    onSelectScript: (scriptType: Action, script?: ScriptDataTypes) => void,
 }
 
 // for consuming in children components
 export const Context = createContext<PropsTypes>({
+    start: null,
+    setStart: () => null,
     script: scriptDataInitialState,
     setScript: () => null,
     scripts: [],
@@ -41,6 +45,8 @@ export const Context = createContext<PropsTypes>({
 
 // Provider in your app
 export const UseContentsContext = ({children}: {children: ReactNode}) => {
+
+    const [start, setStart] = useState<"start" | "pause" | "stop" | null>("stop")
 
     const [intervalId, setIntervalId] = useState<any>(null);
 
@@ -65,58 +71,28 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
 
         onClear();
 
-        const {robot} = preload;
-
         const duration = Number(script.script.slice(-1)[0].start) * 1000 || 1000;
 
         let loops = 0;
 
         let interval: any = "";
 
-        const action = (s: Script, loop: number): void => {
-
-            if(s.loop_remainder){
-                const isReady = (loop % s.loop_remainder) === 0;
+        const action = (spt: Script, loop: number): void => {
+            
+            if(spt.loop_remainder){
+                const isReady = (loop % spt.loop_remainder) === 0;
                 if(!isReady) return;
-            }
+            };
             
             setTimeout(() => {
-                let log: string; // customise print
-
-                if(s.robot === "getMousePos"){
-                    const {x, y} = robot.getMousePos();
-                    log = `{ x: ${x}, y: ${y} }`
-                };
-
-                if(s.robot === "moveMouse"){
-                    robot.moveMouse(s.move?.x, s.move?.y);
-                    log = `{ x: ${s.move?.x}, y: ${s.move?.y} }`;
-                };
-
-                if(s.robot === "mouseClick"){
-                    robot.mouseClick();
-                };
-
-                if(s.robot === "keyToggle"){
-                    robot.mouseClick();
-                    log = `toggle ${s.keyboard}`
-                };
-
-                if(s.robot === "keyTap"){
-                    robot.mouseClick();
-                    log = `tap ${s.keyboard}`
-                };
-
-                const last_iteration = script.script.slice(-1)[0].id === s.id;
-
+                const log = RobotActions(spt);
+                const last_iteration = script.script.slice(-1)[0].id === spt.id;
                 if(last_iteration){
-                    const endedObj = {robot: (new Date()).toLocaleTimeString(), log: "------------------", name: `Ended ${loop}`, start: -1 };
-                    return setPrint((print) => [endedObj, {...s, log}, ...print].slice(0, 100));
-                }
-
-                setPrint((print) => [{...s, log}, ...print].slice(0, 100));
-
-            }, Number(s.start) * 1000);
+                    const script_ended_log = {robot: null, log: `--------------- ${(new Date()).toLocaleTimeString()} ---------------`, name: `Completed ${loop}`, start: -1 };
+                    return setPrint((print) => [script_ended_log, {...spt, log}, ...print].slice(0, 100));
+                };
+                setPrint((print) => [{...spt, log}, ...print].slice(0, 100));
+            }, Number(spt.start) * 1000);
         };
 
         const startScript = () => {
@@ -131,11 +107,13 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
         interval = setInterval(startScript, duration);
 
         setIntervalId(interval);
+        setStart("start")
     };
 
-    const onStopScript = useCallback((): void => {
+    const onStopScript = useCallback((on?: "stop" | "pause"): void => {
         clearInterval(intervalId);
         setIntervalId(null);
+        setStart(on || "stop");
     }, [intervalId]);
 
     const onSelectScript = (action: Action, data?: ScriptDataTypes): void => {
@@ -150,7 +128,7 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
     };
 
     useEffect(() => {
-        window.addEventListener("keydown", ({key}: {key: string}) => key === "q" && onStopScript());
+        window.addEventListener("keydown", ({key}: {key: string}) => key === "q" && onStopScript("stop"));
     }, [onStopScript]);
 
     const value: PropsTypes = {
@@ -159,7 +137,7 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
         print, setPrint,
         looped, setLooped,
         scripts, setScripts,
-
+        start, setStart,
         onClear,
         onStartScript,
         onStopScript,

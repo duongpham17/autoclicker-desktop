@@ -20,8 +20,9 @@ export const updateArrayObject = <T>(arr: T[], index: number, obj: T): T[] => {
 }
 
 export const removeArrayObject = <T>(index: number, arr: T[]): T[] => {
-    const newArray = [...arr];
-    newArray.splice(index, 1);
+    let newArray = [...arr];
+    if(arr.length !== 0) newArray.splice(index, 1);
+    if(arr.length === 0) newArray = []
     return newArray;
 }
 
