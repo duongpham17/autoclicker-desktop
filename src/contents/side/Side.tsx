@@ -14,7 +14,7 @@ const Side = () => {
 
       <Import />
 
-      <Scripts/ >
+      <Scripts />
 
     </div>
   )

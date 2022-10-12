@@ -55,6 +55,7 @@
             justify-content: space-between;
 
             p{
+                font-size: 0.9rem;
                 display: flex;
                 align-items: center;
                 svg{
@@ -83,7 +84,7 @@
 }
 
 .open{
-    height: 300px;
+    height: 250px;
     overflow-y: auto;
     &::-webkit-scrollbar { 
         display: none;  /* Safari and Chrome */
