@@ -11,7 +11,7 @@ const Actions = ({edited, onSubmit, onClearScript, onRemoveScript, onImportScrip
         <Flex sticky style={{"marginBottom": "0.5rem"}}>
             
             {edited 
-                ? <Button onClick={onSubmit} label1="save script" labelClicked='saved' color='black' />
+                ? <Button onClick={onSubmit} label1="Save" labelClicked='saved' color='black' />
                 : <Button label1="" color='blank' />
             }
 

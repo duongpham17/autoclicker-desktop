@@ -6,10 +6,11 @@ import {MdClose} from 'react-icons/md';
 interface Props<T>{
   initialData: T[],
   children: (results: T[]) => ReactNode,
-  dataKey: string
+  dataKey: string,
+  placeholder?: string, 
 };
 
-export const Search = <T,>({initialData, children, dataKey}: Props<T>) => {
+export const Search = <T,>({initialData, children, dataKey, placeholder}: Props<T>) => {
 
   const [value, setValue] = useState("");
 
@@ -35,7 +36,7 @@ export const Search = <T,>({initialData, children, dataKey}: Props<T>) => {
 
       <div className={styles.searchbar}>
         <AiOutlineSearch className={styles.searchIcon} />
-        <input placeholder="Search" name="value" value={value} onChange={onChange} />
+        <input placeholder={placeholder || "Search"} name="value" value={value} onChange={onChange} />
         {value && <MdClose className={styles.closeIcon} onClick={onClose} />}
       </div>
 

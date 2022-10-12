@@ -2,7 +2,7 @@
     width: 100%;
     background-color: var(--clr-black);
     position: fixed;
-    bottom: 0;
+    bottom: -1px;
     border-top: 1px solid var(--clr-light);
     height: 45px;
     transition: ease-in-out 0.3s;
@@ -31,6 +31,10 @@
     .print{
         padding: 0.5rem;
 
+        .warning{
+            color: var(--clr-red);
+        }
+
         p, span{
             color: white;
         }
@@ -50,11 +54,24 @@
             display: flex;
             justify-content: space-between;
 
-            &:hover  span{
+            p{
+                display: flex;
+                align-items: center;
+                svg{
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                }
+                span{
+                    margin-left: 0.5rem;
+                }
+            }
+
+            &:hover .copy{
                 display: block;
             }
 
-            span{
+            .copy{
                 display: none;
             }
 
@@ -66,7 +83,7 @@
 }
 
 .open{
-    height: 200px;
+    height: 300px;
     overflow-y: auto;
     &::-webkit-scrollbar { 
         display: none;  /* Safari and Chrome */

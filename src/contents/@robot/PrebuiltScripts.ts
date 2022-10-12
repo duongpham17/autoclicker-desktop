@@ -15,8 +15,8 @@ const autoclick: ScriptDataTypes = {
             id: "script-id-1",
             name: "Click",
             start: 1,
-            robot: "mouseClick",
-            mouse_click: "left"
+            normal_robot: "mouseClick",
+            normal_mouse_click: "left"
         },
     ]
 }

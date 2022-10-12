@@ -3,8 +3,8 @@ import styles from './Contents.module.scss';
 import { UseContentsContext } from './useContentsContext';
 
 import Terminal from './terminal';
-import Scripts from './scripts';
-import Script from './script';
+import Page from './page';
+import Side from './side';
 
 const Contents = () => {
 
@@ -18,11 +18,11 @@ const Contents = () => {
                 </div>
 
                 <div className={styles.left}>
-                    <Scripts />
+                    <Side />
                 </div>
 
                 <div className={styles.right}>
-                    <Script />
+                    <Page />
                 </div>
    
             </UseContentsContext>

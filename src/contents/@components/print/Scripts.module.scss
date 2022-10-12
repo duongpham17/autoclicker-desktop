@@ -1,7 +1,7 @@
 .container{
-    overflow-y: auto;
-
+    
     .element{
+
         border-left: 2px solid var(--clr-light);
         border-right: 2px solid var(--clr-light);
         margin: 0.5rem 0;
@@ -23,27 +23,32 @@
         .information{
             width: 100%;
             margin-right: 0.5rem;
+
             small{
                 font-weight: 200;
+                display: flex;
+                align-items: center;
+                
+                svg{
+                    display: flex;
+                    align-items: center;
+                }
+
+                .arrow{
+                    margin-right: 0.5rem;
+                }
+                .color{
+                    margin-left: 0.5rem;
+                }
             }
 
             p{
                 display: flex;
-                justify-content: space-between
-            };
-        }
-
-        .information:hover + .otherActions{
-            display: block;
-        }
-
-        .otherActions{
-            display: none;
-
-            &:hover{
-                display: block;
+                justify-content: space-between;
+                line-height: 1.3rem;
             }
         }
+
     }
 
     .selected{

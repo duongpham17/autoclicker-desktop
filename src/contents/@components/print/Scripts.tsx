@@ -2,6 +2,9 @@ import styles from './Scripts.module.scss';
 import {ReactNode} from 'react';
 import {ScriptDataTypes, Script} from 'contents/@types';
 import {v4 as uuidv4} from 'uuid';
+import {shorten} from 'utils';
+import {BsArrowReturnRight, BsFillSquareFill} from 'react-icons/bs';
+import Menu from 'components/menu/Menu';
 
 interface Props {
     script: ScriptDataTypes,
@@ -22,44 +25,72 @@ const Scripts = ({script, onSelectScript, children, selected}: Props) => {
                     </div>
 
                     <div className={styles.information}>
-                        <p>
-                            <span> {el.name} </span>
-                            <span> {el.start} <small>s</small> </span>
-                        </p>
-                        <p>
-                            <small>{el.robot} {!!el.loop_remainder && `( run at loop ${el.loop_remainder} )`}</small>
+                        <div>
+                            <p>
+                                <label> {shorten(el.name, 25)} </label>
+                                <label> {el.start}s</label>
+                            </p>
+                            <p>
+                                <small> {el.normal_robot} {!!el.loop_remainder && `( run at loop ${el.loop_remainder} )`} </small>
 
-                            {(el.robot === "mouseClick") && 
-                                <small>{el.mouse_click}</small>
+                                {(el.normal_events === "color") && 
+                                     <small>#{el.pixel_color} <BsFillSquareFill className={styles.color} color={el.pixel_color}/></small>
+                                }
+
+                                {(el.normal_events === "click") && 
+                                    <small>{el.normal_mouse_click}</small>
+                                }
+
+                                {(el.normal_events === "move") &&
+                                    <small>{` { x: ${el.normal_x_coord}, y: ${el.normal_y_coord} }`}</small>
+                                }
+
+                                {(el.normal_events === "keyboard" ) && 
+                                    <small>{el.normal_keyboard}</small>
+                                }
+
+                                {(el.normal_events === "typing") && 
+                                    <small>{el.normal_words}</small>
+                                }
+
+                                {(el.normal_events === "empty") && 
+                                    <small>. . . . . . . . . . . . . . . . . . . . . .</small>
+                                }
+                            </p>
+                        </div>
+                        <div className={styles.color}>
+                            {(el.normal_events === "color") && 
+                                <p>
+                                    
+                                    <small>
+                                        <span><BsArrowReturnRight className={styles.arrow}/> </span>
+                                        <span>{el.pixel_color_robot} </span>
+                                    </small>
+
+                                    {(el.pixel_color_events === "click") && 
+                                        <small>{el.pixel_color_mouse_click} click</small>
+                                    }
+
+                                    {(el.pixel_color_events === "move") &&
+                                        <small>{` { x: ${el.pixel_color_x_coord}, y: ${el.pixel_color_y_coord} }`}</small>
+                                    }       
+
+                                    {(el.pixel_color_events === "keyboard") &&
+                                        <small>{el.pixel_color_keyboard}</small>
+                                    }      
+
+                                    {(el.pixel_color_events === "typing") && 
+                                        <small>{el.pixel_color_words}</small>
+                                    }
+                                </p>
                             }
-
-                            {(el.robot === "mouseClick") && 
-                                <small>{el.mouse_click}</small>
-                            }
-
-                            {(el.robot === "moveMouse" || el.robot === "moveMouseSmooth" || el.robot === "dragMouse" || el.robot === "scrollMouse") &&
-                                <small>{` { x: ${el.move?.x}, y: ${el.move?.y} }`}</small>
-                            }
-
-                            {(el.robot === "keyTap" || el.robot === "keyToggle" ) && 
-                                <small>{el.keyboard}</small>
-                            }
-
-                            {(el.robot === "typeString") && 
-                                <small>{el.words}</small>
-                            }
-
-                            {(el.robot === "timeFiller") && 
-                                <small>. . . . . .</small>
-                            }
-
-                        </p>
+                        </div>
                     </div>
 
                     { children &&
-                        <div className={styles.otherActions} onClick={(e) => e.stopPropagation()}>
+                        <Menu>
                             {children(el, index)}
-                        </div>
+                        </Menu>
                     }
 
                 </div>    

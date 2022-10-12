@@ -1,7 +1,8 @@
 import styles from './Log.module.scss';
 import {useEffect, useState} from 'react'
 import {PrintActions} from 'contents/@types';
-import {copyToClipboard} from 'utils'
+import {copyToClipboard} from 'utils';
+import {BsArrowReturnRight, BsSquareFill} from 'react-icons/bs';
 
 interface Props {
     data: PrintActions[],
@@ -21,24 +22,48 @@ const Log = ({data, onActionLog, onActionLogLabel = "copy", onActionLogLabelClic
     };
 
     useEffect(() => {
-        setTimeout(() => setClicked(null), 2000)
+        setTimeout(() => setClicked(null), 2000);
     }, [clicked]);
 
     return ( 
         !!data.length ?
             <div className={`${styles.container} ${data.length >= 10 && styles.padding}`}>
                 {data.map((el, index) => 
-                    <div key={index} className={styles.element} onClick={() => onAction(index, el.log)}>
+                    <div key={index} className={styles.element} onClick={() => onAction && onAction(index, el.log)}>
 
                         <div className={styles.information}>
                             <p>
                                 <span>{el.name}</span>
-                                {el.start !== -1 && <span> {el.start} <small>s</small> </span>}
+                                {el.start !== -1 && <span> {el.start} s </span>}
                             </p>
                             <p>
-                                <small>{el.robot}</small>
-                                <small>{el.log}</small>
+                                <small>{el.normal_robot || "-----------------------------------"}</small>
+                                <small>{el.log} {el.normal_events === "color" && <BsSquareFill className={styles.color} color={el.pixel_color}/>}</small>
                             </p>
+                            {(el.normal_events === "color") && 
+                                <p>
+                                    <small>
+                                        <span><BsArrowReturnRight className={styles.arrow}/> </span>
+                                        <span>{el.pixel_color_robot} </span>
+                                    </small>
+
+                                    {(el.pixel_color_events === "click") && 
+                                        <small>{el.pixel_color_mouse_click} click</small>
+                                    }
+
+                                    {(el.pixel_color_events === "move") &&
+                                        <small>{` { x: ${el.pixel_color_x_coord}, y: ${el.pixel_color_y_coord} }`}</small>
+                                    }       
+
+                                    {(el.pixel_color_events === "keyboard") &&
+                                        <small>{el.pixel_color_keyboard}</small>
+                                    }      
+
+                                    {(el.pixel_color_events === "typing") && 
+                                        <small>{el.pixel_color_words}</small>
+                                    }
+                                </p>
+                            }
                         </div>
 
                         {onActionLog && 

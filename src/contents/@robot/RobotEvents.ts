@@ -68,13 +68,20 @@ export const RobotEvents:Props[] = [
     },
     {
         id: 8,
-        name: "Type String",
+        name: "Type string",
         robot: "typeString",
-        description: "Type a string",
+        description: "auto type words for you",
         events: "typing",
     },
     {
         id: 9,
+        name: "Pixel color",
+        robot: "getPixelColor",
+        description: "Detect colors",
+        events: "color",
+    },
+    {
+        id: 10,
         name: "Time filler",
         robot: "timeFiller",
         description: "Does nothing",
@@ -86,41 +93,59 @@ export const RobotEvents:Props[] = [
 export const RobotActions = (s: Script) => {
     const {robot} = preload;
 
-    let log: string = "" // customise print
+    let log: string = "" // customise print;
+    
 
-    if(s.robot === "timeFiller"){
-        log = "time filler"
+    if(s.normal_robot === "getPixelColor"){
+
+        const isColor = robot[s.normal_robot](s.normal_x_coord, s.normal_y_coord) === s.pixel_color;
+
+        if(isColor) setTimeout(() => {
+            if(s.pixel_color_robot) {
+                if(s.pixel_color_events === "move") robot[s.pixel_color_robot](s.pixel_color_x_coord, s.pixel_color_y_coord);
+                if(s.pixel_color_events === "click") robot[s.pixel_color_robot](s.pixel_color_mouse_click);
+                if(s.pixel_color_events === "toggle") robot[s.pixel_color_robot](s.pixel_color_mouse_toggle);
+                if(s.pixel_color_events === "typing") robot[s.pixel_color_robot](s.normal_words);
+                if(s.pixel_color_events === "keyboard") robot[s.pixel_color_robot](s.pixel_color_keyboard);
+            }
+        }, 0);
+
+        log = isColor ? "true" : "false";
+    }
+
+    if(s.normal_robot === "timeFiller"){
+        log = "time filler";
     };
 
-    if(s.robot === "mouseClick"){
-        robot[s.robot](!s.mouse_click ? "left" : s.mouse_click);
-        log = `click ${s.mouse_click}`
+    if(s.normal_robot === "mouseClick"){
+        robot[s.normal_robot](s.normal_mouse_click);
+        log = `click ${s.normal_mouse_click}`
     };
     
-    if(s.robot === "mouseToggle"){
-        robot[s.robot](!s.mouse_toggle ? "down" : s.mouse_toggle);
-        log = `toggle ${s.mouse_toggle}`
+    if(s.normal_robot=== "mouseToggle"){
+        robot[s.normal_robot](s.normal_mouse_toggle);
+        log = `toggle ${s.normal_mouse_toggle}`
     };
 
-    if(s.robot === "getMousePos"){
-        const {x, y} = robot[s.robot]();
+    if(s.normal_robot=== "getMousePos"){
+        const {x, y} = robot[s.normal_robot]();
         log = `{ x: ${x}, y: ${y} }`;
     };
 
-    if(s.robot === "moveMouse" || s.robot === "moveMouseSmooth" || s.robot === "dragMouse" || s.robot === "scrollMouse"){
-        robot[s.robot](s.move?.x, s.move?.y);
-        log = `{ x: ${s.move?.x}, y: ${s.move?.y} }`;
+    if(s.normal_robot=== "moveMouse" || s.normal_robot=== "moveMouseSmooth" || s.normal_robot=== "dragMouse" || s.normal_robot=== "scrollMouse"){
+        robot[s.normal_robot](s.normal_x_coord, s.normal_y_coord);
+        log = `{ x: ${s.normal_x_coord}, y: ${s.normal_y_coord} }`;
     };
 
-    if(s.robot === "keyToggle" || s.robot === "keyTap"){
-        robot[s.robot](s.keyboard);
-        if(s.robot === "keyToggle") log = `toggle ${s.keyboard}`
-        if(s.robot === "keyTap") log = `tap ${s.keyboard}`
+    if(s.normal_robot=== "keyToggle" || s.normal_robot=== "keyTap"){
+        robot[s.normal_robot](s.normal_keyboard);
+        if(s.normal_robot=== "keyToggle") log = `toggle ${s.normal_keyboard}`
+        if(s.normal_robot=== "keyTap") log = `tap ${s.normal_keyboard}`
     };
     
-    if(s.robot === "typeString"){
-        robot[s.robot](s.words);
-        log = `${s.words}`
+    if(s.normal_robot=== "typeString"){
+        robot[s.normal_robot](s.normal_words);
+        log = `${s.normal_words}`
     };
 
     return log

@@ -36,7 +36,7 @@ const Create = () => {
 
     const initialState: ScriptDataTypes = useMemo(() => ({...scriptDataInitialState, id: uuidv4(), action: "create"}), []);
 
-    const {onSubmit, values, onChange, errors, setValues, onClear, onSetValue, edited} = useForm(initialState, callback, Valiation);
+    const {onSubmit, values, onChange, errors, setValues, onClear, onSetValue, edited, setEdited} = useForm(initialState, callback, Valiation);
 
     useEffect(() => {
         if(script?.action === "edit") setValues(script);
@@ -99,11 +99,16 @@ const Create = () => {
     };
 
     const onImportScript = async () => {
-        const string = await navigator.clipboard.readText();
-        if(!string) return;
-        const data = JSON.parse(string);
-        if(!data) return;
-        setValues({...data, build:"custom", action: "edit", id: uuidv4()});
+        try{
+            const string = await navigator.clipboard.readText();
+            if(!string) return;
+            const data = JSON.parse(string);
+            if(!data) return;
+            setValues({...data, build:"custom", action: "edit", id: uuidv4()});
+            setEdited(true);
+        } catch {
+            return
+        }
     };
 
     function callback() { 

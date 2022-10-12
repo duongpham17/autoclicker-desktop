@@ -12,7 +12,7 @@ import SideWindow from 'components/sideWindow/SideWindow';
 
 const Built = () => {
 
-    const {onOpenValue, openValue} = useOpen<"scripts" | "description">("description");
+    const {onOpenValue, openValue} = useOpen<"scripts" | "description">("scripts");
 
     const c = useContext(Context);
 
@@ -24,15 +24,15 @@ const Built = () => {
                 <Button label1={c.intervalId ? "STOP" : "START"} onClick={() => c.intervalId ? c.onStopScript("stop") : c.onStartScript()} color="black" />
 
                 <SideWindow>
-                    {c.script.build !== "default" && <Button label1="Edit" onClick={() => c.script && c.onSelectScript("edit", c.script)} color="blue" />}
+                    {c.script.build !== "default" && <Button label1="Edit" onClick={() => c.script && c.onSelectAction("edit", c.script)} color="blue" />}
                     <Button label1="Export" onClick={() => copyToClipboard(c.script)} />
                 </SideWindow>
 
             </Flex>
 
             <Flex>
-                <Button label1="Description" onClick={() => onOpenValue("description", true)} selected={openValue === "description"} />
                 <Button label1="Script" onClick={() => onOpenValue("scripts", true)} selected={openValue === "scripts"}/>
+                <Button label1="Description" onClick={() => onOpenValue("description", true)} selected={openValue === "description"} />
             </Flex>
 
             { openValue === "scripts" &&

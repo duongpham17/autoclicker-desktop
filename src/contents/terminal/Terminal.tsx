@@ -12,7 +12,7 @@ import {BiExit} from 'react-icons/bi';
 const Terminal = () => {
   
   const c = useContext(Context);
-
+  
   return ( 
     
     (c.start === "start" || c.start === "pause") 
@@ -28,7 +28,7 @@ const Terminal = () => {
       <PrintLog data={c.print} />
 
       <Flex fixed="bottom">
-        <Button label1="Exit terminal" label2={<BiExit/>} onClick={() => c.onStopScript("stop")} color="black" style={{"marginBottom" : "0.5rem"}} />
+        <Button label1="Exit terminal ( esc )" label2={<BiExit/>} onClick={() => c.onStopScript("stop")} color="black" style={{"marginBottom" : "0.5rem"}} />
       </Flex>
 
     </div>

@@ -25,10 +25,20 @@
                 align-items: center;
                 justify-content: space-between;
                 color: white;
+                line-height: 1.2rem;
+
+                .arrow{
+                    margin-right: 0.5rem;
+                }
+                .color{
+                    margin-left: 0.5rem;
+                }
                 
                 small{
+                    display: flex;
+                    align-items: center;
                     font-weight: 200;
-                    color: var(--clr-light-transparent);
+                    color: var(--clr-light);
                 }
             }
         }

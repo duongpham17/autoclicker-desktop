@@ -20,7 +20,7 @@ export interface PropsTypes {
     onClear: () => void,
     onStartScript: () => void,
     onStopScript: (on?: "stop" | "pause") => void,
-    onSelectScript: (scriptType: Action, script?: ScriptDataTypes) => void,
+    onSelectAction: (scriptType: Action, script?: ScriptDataTypes) => void,
 }
 
 // for consuming in children components
@@ -39,7 +39,7 @@ export const Context = createContext<PropsTypes>({
     setLooped: () => null,
     onClear: () => null,
     onStartScript: () => null,
-    onSelectScript: () => null,
+    onSelectAction: () => null,
     onStopScript: () => null,
 });
 
@@ -78,36 +78,38 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
         let interval: any = "";
 
         const action = (spt: Script, loop: number): void => {
-            
-            if(spt.loop_remainder){
-                const isReady = (loop % spt.loop_remainder) === 0;
-                if(!isReady) return;
-            };
-            
+            if(spt.loop_remainder && (loop % spt.loop_remainder) === 0) return;
             setTimeout(() => {
                 const log = RobotActions(spt);
                 const last_iteration = script.script.slice(-1)[0].id === spt.id;
                 if(last_iteration){
-                    const script_ended_log = {robot: null, log: `--------------- ${(new Date()).toLocaleTimeString()} ---------------`, name: `Completed ${loop}`, start: -1 };
-                    return setPrint((print) => [script_ended_log, {...spt, log}, ...print].slice(0, 100));
+                    const completed_log = {
+                        normal_robot: null, 
+                        log: `--------------- ${(new Date()).toLocaleTimeString()} ---------------`, 
+                        name: `Completed ${loop}`, 
+                        start: -1 // show no number in the terminal
+                    };
+                    return setPrint((print) => [completed_log, {...spt, log}, ...print].slice(0, 100));
                 };
                 setPrint((print) => [{...spt, log}, ...print].slice(0, 100));
             }, Number(spt.start) * 1000);
         };
 
-        const startScript = () => {
+        const startActions = () => {
             setLooped(`Looped ${loops} / ${script.max_loops}`);
-            if(loops >= Number(script.max_loops)) return clearInterval(interval);
+            if(loops >= Number(script.max_loops)) {
+                clearInterval(interval);
+                setIntervalId(null)
+                setStart("pause");
+                return;
+            }
             for(let x of script.script) action(x, loops+1);
             loops++;
         };
-
-        startScript();
-
-        interval = setInterval(startScript, duration);
-
+        startActions();
+        interval = setInterval(startActions, duration);
         setIntervalId(interval);
-        setStart("start")
+        if(start !== "start") setStart("start")
     };
 
     const onStopScript = useCallback((on?: "stop" | "pause"): void => {
@@ -116,7 +118,7 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
         setStart(on || "stop");
     }, [intervalId]);
 
-    const onSelectScript = (action: Action, data?: ScriptDataTypes): void => {
+    const onSelectAction = (action: Action, data?: ScriptDataTypes): void => {
         if(!data) {
             setScript({...scriptDataInitialState, action});
             document.title = `Autoclicker ( ${action} )`;
@@ -128,7 +130,7 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
     };
 
     useEffect(() => {
-        window.addEventListener("keydown", ({key}: {key: string}) => key === "q" && onStopScript("stop"));
+        window.addEventListener("keydown", ({key}: {key: string}) => key === "Escape" && onStopScript("stop"));
     }, [onStopScript]);
 
     const value: PropsTypes = {
@@ -141,7 +143,7 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
         onClear,
         onStartScript,
         onStopScript,
-        onSelectScript,
+        onSelectAction,
     };
   
     return (
