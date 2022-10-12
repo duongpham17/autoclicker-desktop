@@ -1,9 +1,9 @@
 # Getting started
 
-npm i 
+1. npm i 
 install all the packages
 
-npm run dev 
+2. npm run dev 
 run electron application
 
 # Robotjs link
