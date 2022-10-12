@@ -1,8 +1,13 @@
 # Getting started
 
-1. npm i
-2. npm run dev
+npm i 
+install all the packages
+
+npm run dev 
+run electron application
 
 # Robotjs link
-
 http://robotjs.io/docs/syntax
+
+# Electron link
+https://www.electronjs.org/
