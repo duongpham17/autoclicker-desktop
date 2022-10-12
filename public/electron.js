@@ -2,14 +2,8 @@ const path = require('path');
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 
-require('update-electron-app')({
-  repo: 'duongpham17/autoclicker-pro',
-  updateInterval: '2 hour',
-})
 
 const createWindow = () => {
-
-  //build file for production path.join(__dirname, 'preload.js')
 
   // Create the browser window.
   const win = new BrowserWindow({
