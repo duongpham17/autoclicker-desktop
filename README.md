@@ -1,10 +1,12 @@
 # Getting started
 
-1. npm i 
-install all the packages
+```
+npm i
+```
 
-2. npm run dev 
-run electron application
+```
+npm run dev 
+```
 
 # Robotjs link
 http://robotjs.io/docs/syntax
