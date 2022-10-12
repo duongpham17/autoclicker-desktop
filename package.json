@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "productName": "Autoclicker",
-  "description": "Create your own autoclicker and share with friends",
+  "description": "Autoclicker robots",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -37,7 +37,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "rebuild": "npm rebuild --runtime=electron --target=17.1.0 --disturl=https://atom.io/download/atom-shell --abi=102"
+    "rebuild": "npm rebuild --runtime=electron --target=17.1.0 --disturl=https://atom.io/download/atom-shell --abi=102",
+    "create-installer-win": "node installers/windows/createinstaller.js"
   },
   "main": "public/electron.js",
   "homepage": "./",
@@ -64,6 +65,7 @@
     "electron": "^21.1.0",
     "electron-installer-dmg": "^4.0.0",
     "electron-packager": "^16.0.0",
+    "electron-winstaller": "^5.0.0",
     "wait-on": "^6.0.1"
   }
 }
