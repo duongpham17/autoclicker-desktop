@@ -1,5 +1,7 @@
 # Getting started
 
+You need to install Nodejs - https://nodejs.org/en/
+
 ```
 npm i
 ```
@@ -16,6 +18,9 @@ npm run package-mac
 ```
 npm run package-win
 ```
+
+# Nodejs
+https://nodejs.org/en/
 
 # Robotjs link
 http://robotjs.io/docs/syntax
