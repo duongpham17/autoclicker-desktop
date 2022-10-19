@@ -114,6 +114,11 @@ export const RobotActions = (s: Script) => {
                 if(s.pixel_color_events === "toggle") robot[s.pixel_color_robot](s.pixel_color_mouse_toggle);
                 if(s.pixel_color_events === "typing") robot[s.pixel_color_robot](s.normal_words);
                 if(s.pixel_color_events === "keyboard") robot[s.pixel_color_robot](s.pixel_color_keyboard);
+                if(s.pixel_color_events === "move click") {
+                    robot.moveMouse(s.pixel_color_x_coord, s.pixel_color_y_coord);
+                    setTimeout(() => robot.mouseClick(s.pixel_color_mouse_click), 100);
+                    log = `{ x: ${s.pixel_color_x_coord}, y: ${s.pixel_color_y_coord} } - ${s.pixel_color_mouse_click}`;
+                }
             }
         }, 0);
 
@@ -123,7 +128,7 @@ export const RobotActions = (s: Script) => {
     if(s.normal_robot === "moveMouseAndClick"){
         robot.moveMouse(s.normal_x_coord, s.normal_y_coord);
         setTimeout(() => robot.mouseClick(s.normal_mouse_click), 100);
-        log = `{ x: ${s.normal_x_coord}, y: ${s.normal_y_coord} } - click ${s.normal_mouse_click}`;
+        log = `{ x: ${s.normal_x_coord}, y: ${s.normal_y_coord} } - ${s.normal_mouse_click}`;
     };
 
     if(s.normal_robot === "timeFiller"){

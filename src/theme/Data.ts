@@ -1,5 +1,5 @@
 export interface ThemeTypes {
-    theme: "light" | "purple" | "matrix" | "electric" | "night" | "cave"
+    theme: "light" | "purple" | "green" | "yellow" | "night" | "orange" | "pink" | "blue"
     color: string,
 }
 
@@ -17,15 +17,23 @@ export const data: ThemeTypes[] = [
         color: "black"
     },
     {
-        theme: "matrix",
+        theme: "green",
         color: "black",
     },
     {
-        theme: "electric",
+        theme: "yellow",
         color: "rgb(20, 20, 20)",
     },
     {
-        theme: "cave",
+        theme: "orange",
+        color: "rgb(19, 19, 19)"
+    },
+    {
+        theme: "pink",
+        color: "rgb(19, 19, 19)"
+    },
+    {
+        theme: "blue",
         color: "rgb(19, 19, 19)"
     }
 ]

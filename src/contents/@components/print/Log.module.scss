@@ -20,11 +20,11 @@
 
         .information{
             width: 100%;
-            p{
+
+            div{
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                color: white;
                 line-height: 1.2rem;
 
                 .arrow{
@@ -33,8 +33,8 @@
                 .color{
                     margin-left: 0.5rem;
                 }
-                
-                small{
+
+                small, span{
                     display: flex;
                     align-items: center;
                     font-weight: 200;

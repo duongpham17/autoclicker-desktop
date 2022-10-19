@@ -94,7 +94,7 @@ const Build = ({values, onSetValue, viewing}: Props) => {
 
             <Select label1='Select a script' items={RobotEvents} selected={scriptActions.normal_robot} style={{"marginBottom": "1rem"}}>
                 {(RobotEvents) => 
-                    RobotEvents.map(el => 
+                    RobotEvents.map((el) => 
                         <List value={el.name} hover={el.description} onClick={() => onSelectScript({normal_robot: el.robot, normal_events: el.events})} key={el.id} />
                     )
                 }
@@ -204,9 +204,23 @@ const Build = ({values, onSetValue, viewing}: Props) => {
 
                     {scriptActions.pixel_color_events === "typing" &&
                         <Flex>
-                            <Input label1="Words to be typed" type="text" placeholder='...' name="pixel_color_keyboard_words" value={scriptActions.pixel_color_words || ""} onChange={onChange} />
+                            <Input label1="Words to be typed" type="text" placeholder='...' name="pixel_color_words" value={scriptActions.pixel_color_words || ""} onChange={onChange} />
                         </Flex> 
-                    }        
+                    }       
+
+                    {scriptActions.pixel_color_events === "move click" &&
+                        <>
+                            <Flex onContextMenu={() => onPaste("pixel")}>
+                                <Input label1="X axis" type="number" placeholder='number' name="pixel_color_x_coord" value={scriptActions.pixel_color_x_coord || ""} onChange={onChange}  />
+                                <Input label1="Y axis" type="number" placeholder='number' name="pixel_color_y_coord" value={scriptActions.pixel_color_y_coord || ""} onChange={onChange} />
+                            </Flex>
+                            <Flex>
+                                <Button label1="Left click" onClick={() => onSelectScript({pixel_color_mouse_click: "left"})} selected={scriptActions.pixel_color_mouse_click === "left"} />
+                                <Button label1="Middle click" onClick={() => onSelectScript({pixel_color_mouse_click: "middle"})} selected={scriptActions.pixel_color_mouse_click === "middle"}/>
+                                <Button label1="Right click" onClick={() => onSelectScript({pixel_color_mouse_click: "right"})} selected={scriptActions.pixel_color_mouse_click === "right"} />
+                            </Flex>
+                        </>
+                    }      
                 </>
             }
 

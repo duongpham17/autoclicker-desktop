@@ -4,6 +4,8 @@ import {PrintActions} from 'contents/@types';
 import {copyToClipboard, shorten} from 'utils';
 import {BsArrowReturnRight, BsSquareFill} from 'react-icons/bs';
 
+import Flex from '@components/flex/Flex';
+
 interface Props {
     data: PrintActions[],
     onActionLogLabel?: string | number,
@@ -32,16 +34,16 @@ const Log = ({data, onActionLog, onActionLogLabel = "copy", onActionLogLabelClic
                     <div key={index} className={styles.element} onClick={() => onAction && onAction(index, el.log)}>
 
                         <div className={styles.information}>
-                            <p>
-                                <span>{el.name}</span>
-                                {el.start !== -1 && <span> {el.start} s </span>}
-                            </p>
-                            <p>
+                            <Flex>
+                                <p>{el.name}</p>
+                                {el.start !== -1 && <p> {el.start} s </p>}
+                            </Flex>
+                            <div>
                                 <small>{el.normal_robot || "-----------------------------------"}</small>
                                 <small>{el.normal_robot === "typeString" ? shorten(el.log, 15) : el.log} {el.normal_events === "color" && <BsSquareFill className={styles.color} color={el.pixel_color}/>}</small>
-                            </p>
+                            </div>
                             {(el.normal_events === "color") && 
-                                <p>
+                                <div>
                                     <small>
                                         <span><BsArrowReturnRight className={styles.arrow}/> </span>
                                         <span>{el.pixel_color_robot} </span>
@@ -60,9 +62,13 @@ const Log = ({data, onActionLog, onActionLogLabel = "copy", onActionLogLabelClic
                                     }      
 
                                     {(el.pixel_color_events === "typing") && 
-                                        <small>{shorten(el.pixel_color_words!, 15)}</small>
+                                        <small>{shorten(el.pixel_color_words!, 20)}</small>
                                     }
-                                </p>
+
+                                    {(el.pixel_color_events === "move click") && 
+                                        <small>{`{ x: ${el.pixel_color_x_coord}, y: ${el.pixel_color_y_coord} } - ${el.pixel_color_mouse_click}`}</small>
+                                    }
+                                </div>
                             }
                         </div>
 

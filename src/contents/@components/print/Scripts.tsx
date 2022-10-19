@@ -2,7 +2,7 @@ import styles from './Scripts.module.scss';
 import {ReactNode} from 'react';
 import {ScriptDataTypes, Script} from 'contents/@types';
 import {v4 as uuidv4} from 'uuid';
-import {shorten, middleElipses} from 'utils';
+import {shorten} from 'utils';
 import {BsArrowReturnRight, BsFillSquareFill} from 'react-icons/bs';
 import Menu from '@components/menu/Menu';
 
@@ -50,7 +50,10 @@ const Scripts = ({script, onSelectScript, children, selected}: Props) => {
                                 }
 
                                 {(el.normal_events === "typing") && 
-                                    <small>{shorten(el.normal_words!, 15)}</small>
+                                    <small>{shorten(el.normal_words!, 20)}</small>
+                                }
+                                {(el.normal_events === "move click") && 
+                                    <small>{`{x: ${el.normal_x_coord}, y: ${el.normal_y_coord}} - ${el.normal_mouse_click}`}</small>
                                 }
 
                                 {(el.normal_events === "empty") && 
@@ -80,7 +83,11 @@ const Scripts = ({script, onSelectScript, children, selected}: Props) => {
                                     }      
 
                                     {(el.pixel_color_events === "typing") && 
-                                        <small>{shorten(el.pixel_color_words!, 15)}</small>
+                                        <small>{shorten(el.pixel_color_words!, 20)}</small>
+                                    }
+
+                                    {(el.pixel_color_events === "move click") && 
+                                        <small>{`{ x: ${el.pixel_color_x_coord}, y: ${el.pixel_color_y_coord} } - ${el.pixel_color_mouse_click}`}</small>
                                     }
                                 </p>
                             }
