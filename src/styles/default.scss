@@ -11,19 +11,6 @@ html, body {
     min-width: 320px;
 }    
 
-a, button, input, li, textarea, svg, div, ul, li{
-    font-family: "Gill Sans", sans-serif;
-    text-decoration: none;
-    list-style-type: none;
-    outline: none;
-    border: none;
-    background: none;
-    resize: none;
-    font-size: 1rem;
-    box-sizing: border-box;
-    color: #555555;
-}
-
 a, button{
     cursor: pointer;
 }
