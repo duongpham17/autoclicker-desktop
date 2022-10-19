@@ -1,8 +1,8 @@
 export type MainContentTypes = "built" | "create" | "edit" | "help" | "donate" | "theme" | null ;
 
-export type Robot_Actions = "getMousePos" | "mouseClick" | "mouseToggle" | "moveMouse" | "moveMouseSmooth" | "dragMouse" | "scrollMouse" | "keyTap" | "keyToggle" | "getPixelColor" | "typeString" | "timeFiller"
+export type Robot_Actions = "moveMouseAndClick" | "getMousePos" | "mouseClick" | "mouseToggle" | "moveMouse" | "moveMouseSmooth" | "dragMouse" | "scrollMouse" | "keyTap" | "keyToggle" | "getPixelColor" | "typeString" | "timeFiller"
 
-export type Robot_Events = "click" | "toggle" | "move" | "keyboard" | "typing" | "empty" | "color"
+export type Robot_Events = "click" | "toggle" | "move" | "keyboard" | "typing" | "empty" | "color" | "move click"
 
 export interface Script {
     id?: string,

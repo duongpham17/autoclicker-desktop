@@ -26,62 +26,69 @@ export const RobotEvents:Props[] = [
     },
     {
         id: 2,
+        name: "Move mouse & click",
+        robot: "moveMouseAndClick",
+        description: "move mouse and click instantly",
+        events: "move click",
+    },
+    {
+        id: 3,
         name: "Move mouse",
         robot: "moveMouse",
         description: "Move mouse instantly",
         events: "move",
     },
     {
-        id: 3,
+        id: 4,
         name: "Move mouse smooth",
         robot: "moveMouseSmooth",
         description: "Move mouse human like",
         events: "move",
     },
     {
-        id: 4,
+        id: 5,
         name: "Drag mouse",
         robot: "dragMouse",
         description: "Move mouse, with button held down",
         events: "move",
     },
     {
-        id: 5,
+        id: 6,
         name: "Scroll mouse",
         robot: "scrollMouse",
         description: "Scrolls the mouse in any direction",
         events: "move",
     },
     {
-        id: 6,
+        id: 7,
         name: "Key tap",
         robot: "keyTap",
         description: "Press a single key",
         events: "keyboard",
     },
     {
-        id: 7,
+        id: 8,
         name: "Key toggle",
         robot: "keyToggle",
         description: "Hold down or release a key",
         events: "keyboard",
     },
     {
-        id: 8,
+        id: 9,
         name: "Type string",
         robot: "typeString",
         description: "auto type words for you",
         events: "typing",
     },
     {
-        id: 9,
+        id: 10,
         name: "Pixel color",
         robot: "getPixelColor",
         description: "Detect colors",
         events: "color",
     },
     {
-        id: 10,
+        id: 11,
         name: "Time filler",
         robot: "timeFiller",
         description: "Does nothing",
@@ -112,6 +119,12 @@ export const RobotActions = (s: Script) => {
 
         log = isColor ? "true" : "false";
     }
+
+    if(s.normal_robot === "moveMouseAndClick"){
+        robot.moveMouse(s.normal_x_coord, s.normal_y_coord);
+        setTimeout(() => robot.mouseClick(s.normal_mouse_click), 100);
+        log = `{ x: ${s.normal_x_coord}, y: ${s.normal_y_coord} } - click ${s.normal_mouse_click}`;
+    };
 
     if(s.normal_robot === "timeFiller"){
         log = "time filler";

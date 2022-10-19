@@ -2,6 +2,8 @@ import styles from './Description.module.scss';
 import React from 'react';
 import {v4 as uuidv4} from 'uuid';
 
+import Menu from '@components/menu/Menu'
+
 interface Props {
     data: string[],
     edit?: boolean
@@ -26,9 +28,9 @@ const Description = ({data, position, onPosition, children, edit=false}: Props) 
                     }
                 </div>
                 { children && 
-                    <div className={styles.options}>
+                    <Menu>
                         {children(el, index)}
-                    </div>
+                    </Menu>
                 }
             </div>
         )}

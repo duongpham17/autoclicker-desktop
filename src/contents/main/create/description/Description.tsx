@@ -85,8 +85,8 @@ const Description = ({values, onSetValue, viewing}: Props) => {
             <ScriptDescription data={values.description} position={position} onPosition={onPosition} edit>
                 {(el, index) => 
                     <>
-                        <Button label1="edit" onClick={() => onSelectEditDescription(index, el)} style={{"marginBottom": "0.5rem"}}/> 
-                        <Button label1="remove" onClick={() => onDeleteDescription(index)} color='red' style={{"marginBottom": "0.5rem"}}/> 
+                        <Button label1="edit" onClick={() => onSelectEditDescription(index, el)} style={{"padding": "0.3rem", "fontSize": "0.9rem", "margin": "0.2rem 0"}}/> 
+                        <Button label1="remove" onClick={() => onDeleteDescription(index)} color='red' style={{"padding": "0.3rem", "fontSize": "0.9rem", "margin": "0.2rem 0"}}/> 
                     </>
                 }
             </ScriptDescription>

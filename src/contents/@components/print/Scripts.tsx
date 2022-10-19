@@ -2,7 +2,7 @@ import styles from './Scripts.module.scss';
 import {ReactNode} from 'react';
 import {ScriptDataTypes, Script} from 'contents/@types';
 import {v4 as uuidv4} from 'uuid';
-import {shorten} from 'utils';
+import {shorten, middleElipses} from 'utils';
 import {BsArrowReturnRight, BsFillSquareFill} from 'react-icons/bs';
 import Menu from '@components/menu/Menu';
 
@@ -50,7 +50,7 @@ const Scripts = ({script, onSelectScript, children, selected}: Props) => {
                                 }
 
                                 {(el.normal_events === "typing") && 
-                                    <small>{el.normal_words}</small>
+                                    <small>{shorten(el.normal_words!, 15)}</small>
                                 }
 
                                 {(el.normal_events === "empty") && 
@@ -80,7 +80,7 @@ const Scripts = ({script, onSelectScript, children, selected}: Props) => {
                                     }      
 
                                     {(el.pixel_color_events === "typing") && 
-                                        <small>{el.pixel_color_words}</small>
+                                        <small>{shorten(el.pixel_color_words!, 15)}</small>
                                     }
                                 </p>
                             }

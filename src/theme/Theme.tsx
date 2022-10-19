@@ -22,7 +22,7 @@ export const Context = createContext<PropsTypes>({
 // Provider in your app
 export const Theme = ({children}: {children: ReactNode}) => {
 
-    const initialState = {name: "light", color: ""};
+    const initialState = {theme: "light", color: ""};
 
     const saved_theme = localStorage.getItem("theme");
 

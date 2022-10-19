@@ -142,6 +142,20 @@ const Build = ({values, onSetValue, viewing}: Props) => {
                 </Flex> 
             }        
 
+            {scriptActions.normal_events === "move click" &&
+                <>
+                    <Flex onContextMenu={() => onPaste("normal")}>
+                        <Input label1="X axis" type="number" placeholder='number' name="x_coord" value={scriptActions.normal_x_coord || ""} onChange={onChange}  />
+                        <Input label1="Y axis" type="number" placeholder='number' name="y_coord" value={scriptActions.normal_y_coord || ""} onChange={onChange} />
+                    </Flex>
+                    <Flex>
+                        <Button label1="Left click" onClick={() => onSelectScript({normal_mouse_click: "left"})} selected={scriptActions.normal_mouse_click === "left"} />
+                        <Button label1="Middle click" onClick={() => onSelectScript({normal_mouse_click: "middle"})} selected={scriptActions.normal_mouse_click === "middle"}/>
+                        <Button label1="Right click" onClick={() => onSelectScript({normal_mouse_click: "right"})} selected={scriptActions.normal_mouse_click === "right"} />
+                    </Flex>
+                </>
+            }     
+
             {scriptActions.normal_events === "color" && 
                 <>
                     <Flex onContextMenu={() => onPaste("normal")}>

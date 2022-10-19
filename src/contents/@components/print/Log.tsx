@@ -1,7 +1,7 @@
 import styles from './Log.module.scss';
 import {useEffect, useState} from 'react'
 import {PrintActions} from 'contents/@types';
-import {copyToClipboard} from 'utils';
+import {copyToClipboard, shorten} from 'utils';
 import {BsArrowReturnRight, BsSquareFill} from 'react-icons/bs';
 
 interface Props {
@@ -38,7 +38,7 @@ const Log = ({data, onActionLog, onActionLogLabel = "copy", onActionLogLabelClic
                             </p>
                             <p>
                                 <small>{el.normal_robot || "-----------------------------------"}</small>
-                                <small>{el.log} {el.normal_events === "color" && <BsSquareFill className={styles.color} color={el.pixel_color}/>}</small>
+                                <small>{el.normal_robot === "typeString" ? shorten(el.log, 15) : el.log} {el.normal_events === "color" && <BsSquareFill className={styles.color} color={el.pixel_color}/>}</small>
                             </p>
                             {(el.normal_events === "color") && 
                                 <p>
@@ -60,7 +60,7 @@ const Log = ({data, onActionLog, onActionLogLabel = "copy", onActionLogLabelClic
                                     }      
 
                                     {(el.pixel_color_events === "typing") && 
-                                        <small>{el.pixel_color_words}</small>
+                                        <small>{shorten(el.pixel_color_words!, 15)}</small>
                                     }
                                 </p>
                             }

@@ -16,6 +16,16 @@ export const help_data: Props[] = [
         question: "Can't detect color on open applications.",
         answer: `On Mac turn on.
         Settings - Security & Privacy - Privacy - Screen Recording.
+
+        Make sure to remove autoclicker app first and add autoclicker app again.
+        `,
+    },
+    {
+        question: "Mouse not moving or clicking.",
+        answer: `On Mac turn on.
+        Settings - Security & Privacy - Privacy - Accessibility.
+
+        Make sure to remove autoclicker app first and add autoclicker app again.
         `,
     },
     {
