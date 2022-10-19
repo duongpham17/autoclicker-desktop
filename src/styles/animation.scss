@@ -29,26 +29,3 @@
 .loading-10{
   @include Loading(10px, 10px, 2px);
 }
-
-
-.fade{
-  animation: fade 2s linear infinite;
-
-  @keyframes fade{
-    0%{
-        opacity: 0.5;
-    }
-    25% {
-        opacity: 0.7;
-    }
-    50% {
-        opacity: 1;
-    }
-    75%{
-        opacity: 0.7;
-    }
-    100%{
-        opacity: 0.5;
-    }
-  }
-}

@@ -1,10 +1,13 @@
 import styles from './Contents.module.scss';
+import { lazy, Suspense } from 'react';
 
-import { UseContentsContext } from './useContentsContext';
+import { UseContentsContext } from './@context/useContentsContext';
 
-import Terminal from './terminal';
-import Page from './page';
-import Side from './side';
+import Main from './main';
+import Sidebar from './sidebar';
+import Navbar from './navbar';
+
+const Terminal = lazy(() => import('./terminal'));
 
 const Contents = () => {
 
@@ -14,15 +17,21 @@ const Contents = () => {
             <UseContentsContext>
 
                 <div className={styles.print}>
-                    <Terminal />
+                    <Suspense>
+                        <Terminal />
+                    </Suspense>
                 </div>
 
-                <div className={styles.left}>
-                    <Side />
+                <div className={styles.navbar}>
+                    <Navbar/>
                 </div>
 
-                <div className={styles.right}>
-                    <Page />
+                <div className={styles.sidebar}>
+                    <Sidebar />
+                </div>
+
+                <div className={styles.main}>
+                    <Main />
                 </div>
    
             </UseContentsContext>

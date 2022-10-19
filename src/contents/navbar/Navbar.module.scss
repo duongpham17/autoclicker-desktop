@@ -1,0 +1,21 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+
+    button{
+        border-bottom: 1px solid var(--clr-light);
+        padding: 0.5rem;
+        width: 100%;
+        transition: 0.2s ease-in-out;
+        text-transform: capitalize; 
+
+        &:hover{
+            border-color: var(--clr-main);
+        }
+    }
+
+    .selected{
+        border-color:var(--clr-main);
+    }
+}

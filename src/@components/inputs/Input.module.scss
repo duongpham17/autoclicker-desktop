@@ -1,0 +1,43 @@
+.container{
+    width: 100%;
+
+    input{
+        border: 2px solid var(--clr-light);
+        padding: 0.5rem;
+        width: 100%;
+        transition: 0.2s ease-in-out;
+        border-radius: 5px;
+        margin-bottom: 0.5rem;
+        box-sizing: border-box;
+
+        &:hover{
+            border-color: var(--clr-main);
+        }
+    }
+
+    label{
+        width: 100%;
+        margin-bottom: 0.2rem;
+        font-weight: 200;
+    }
+
+    a{
+        font-size: 0.8rem;
+    }
+
+    .double{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .dark{
+        background-color: var(--clr-dark-transparent);
+        color: white;
+    }
+
+    .red{
+        color: var(--clr-red);
+    }
+
+}

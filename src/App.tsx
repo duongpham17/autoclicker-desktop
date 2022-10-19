@@ -1,14 +1,14 @@
 import './styles/index.scss';
 
+import Theme from 'theme';
 import Contents from 'contents';
-
 import Mouse from 'constant/mouse';
 
 const App = () => (
-  <div className="App">
+  <Theme>
     <Contents />
     <Mouse />
-  </div>
+  </Theme>
 );
 
 export default App;

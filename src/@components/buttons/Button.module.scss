@@ -1,0 +1,60 @@
+.container{
+    width: 100%;
+
+    button{
+        border: 1px solid transparent;
+        padding: 0.5rem;
+        width: 100%;
+        transition: 0.2s ease-in-out;
+        border-radius: 5px;
+        min-width: 50px;
+
+        &:hover{
+            border-color: var(--clr-main);
+        }
+        
+        .single{
+            text-align: center;
+        }
+
+        .double{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+
+            svg, span{
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+            }
+        
+        }
+
+    }
+
+    .dark, .red, .bright{
+        p, svg, span{
+            color: white;
+        }
+    }
+    .red{
+        background-color: var(--clr-red);
+    }
+    .bright{
+        background-color: var(--clr-bright);
+        &:hover{
+            opacity: 0.8;
+        }
+    }
+    .light{
+        background-color: var(--clr-light-transparent);
+    }
+    .dark{
+        background-color: var(--clr-dark-transparent)
+    }
+    .selected{
+        border-color: var(--clr-main);
+    }
+
+}

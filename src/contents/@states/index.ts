@@ -1,4 +1,4 @@
-import { ScriptDataTypes, Script } from 'contents/@types';
+import {ScriptDataTypes, Script} from 'contents/@types';
 
 export const scriptDataInitialState: ScriptDataTypes = {
     id: "",
@@ -7,7 +7,7 @@ export const scriptDataInitialState: ScriptDataTypes = {
     name: "",
     max_loops: 0,
     description: [],
-    script: []
+    script: [],
 };
 
 export const scriptInitialState: Script = {

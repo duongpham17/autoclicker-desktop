@@ -1,0 +1,79 @@
+button, a, input, textarea, ul, li, option, select, svg,
+p, q, b, label, span, kbd, small,
+h1, h2, h3, h4, h5, h6,
+div, section, main, table, form, header, nav, footer{
+    color: var(--clr-text);
+}
+
+::placeholder{
+    color: var(--clr-text);
+}
+
+//themes 
+
+// type - color
+.theme-light{
+    --clr-background: white;
+    --clr-main: rgb(49, 153, 239);
+    --clr-text: #555555;
+    --clr-bright: rgb(49, 153, 239);
+    --clr-light: rgba(216, 216, 216, 0.773);
+    --clr-light-transparent: rgba(186, 183, 183, 0.108);
+    --clr-dark-transparent: rgba(49, 49, 49, 0.526);
+    --clr-red: rgb(252, 88, 88);
+}
+
+.theme-night{
+    --clr-background: rgb(56, 56, 56);
+    --clr-main: rgb(36, 169, 158);
+    --clr-text: white;
+    --clr-bright: rgb(36, 169, 158);
+    --clr-light: rgba(216, 216, 216, 0.773);
+    --clr-light-transparent: rgba(57, 57, 57, 0.514);
+    --clr-dark-transparent: rgba(46, 46, 46, 0.526);
+    --clr-red: rgb(252, 88, 88);
+}
+
+.theme-purple{
+    --clr-background: rgb(56, 56, 56);
+    --clr-main: rgb(182, 34, 227);
+    --clr-text: white;
+    --clr-bright: rgb(182, 34, 227);
+    --clr-light: rgba(216, 216, 216, 0.773);
+    --clr-light-transparent: rgba(57, 57, 57, 0.514);
+    --clr-dark-transparent: rgba(46, 46, 46, 0.526);
+    --clr-red: rgb(252, 88, 88);
+}
+
+.theme-matrix{
+    --clr-background: rgb(26, 26, 26);
+    --clr-main: rgb(57, 206, 43);
+    --clr-text: white;
+    --clr-bright: rgb(57, 206, 43);
+    --clr-light: rgba(216, 216, 216, 0.773);
+    --clr-light-transparent: rgba(57, 57, 57, 0.514);
+    --clr-dark-transparent: rgba(46, 46, 46, 0.526);
+    --clr-red: rgb(252, 88, 88);
+}
+
+.theme-electric{
+    --clr-background: rgb(20, 20, 20);
+    --clr-main: rgb(235, 246, 28);
+    --clr-text: rgb(255, 255, 255);
+    --clr-bright: rgb(235, 246, 28);
+    --clr-light: rgba(216, 216, 216, 0.773);
+    --clr-light-transparent: rgba(57, 57, 57, 0.514);
+    --clr-dark-transparent: rgba(46, 46, 46, 0.526);
+    --clr-red: rgb(252, 88, 88);
+}
+
+.theme-cave{
+    --clr-background: rgb(19, 19, 19);
+    --clr-main: rgb(248, 90, 27);
+    --clr-text: white;
+    --clr-bright: rgb(248, 90, 27);
+    --clr-light: rgba(216, 216, 216, 0.773);
+    --clr-light-transparent: rgba(85, 85, 85, 0.187);
+    --clr-dark-transparent: rgba(46, 46, 46, 0.526);
+    --clr-red: rgb(252, 88, 88);
+}

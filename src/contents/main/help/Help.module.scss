@@ -1,0 +1,28 @@
+.container{
+    .box{
+        padding: 0.7rem 0;
+
+        .question{
+            margin-bottom: 0.5rem;
+        }
+        .answer{
+            padding: 0.5rem;
+            background-color: var(--clr-light-transparent);
+            border-radius: 5px;
+            font-weight: 200;
+            white-space: pre-line;
+        }
+        a{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            span{
+                width:100%;
+            }
+            &:hover *{
+                color: var(--clr-main);
+            }
+        }
+
+    }
+}

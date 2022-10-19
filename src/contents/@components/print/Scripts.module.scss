@@ -1,7 +1,6 @@
 .container{
     
     .element{
-
         border-left: 2px solid var(--clr-light);
         border-right: 2px solid var(--clr-light);
         margin: 0.5rem 0;
@@ -12,7 +11,7 @@
         justify-content: space-between;
 
         &:hover{
-            border-color: var(--clr-main) ;
+            border-color: var(--clr-main);
         }
 
         .index{

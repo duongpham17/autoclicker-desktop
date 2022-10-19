@@ -1,3 +1,5 @@
+export type MainContentTypes = "built" | "create" | "edit" | "help" | "donate" | "theme" | null ;
+
 export type Robot_Actions = "getMousePos" | "mouseClick" | "mouseToggle" | "moveMouse" | "moveMouseSmooth" | "dragMouse" | "scrollMouse" | "keyTap" | "keyToggle" | "getPixelColor" | "typeString" | "timeFiller"
 
 export type Robot_Events = "click" | "toggle" | "move" | "keyboard" | "typing" | "empty" | "color"
@@ -28,19 +30,20 @@ export interface Script {
     pixel_color_mouse_toggle?: "down" | "up",
 };
 
-export type Action = "built" | "create" | "edit" | "help" | "donate" | null;
-
-export type Build = "default" | "custom" | "others" | null;
+export type Build = "prebuilt" | "custom" | "others" | null;
 
 export interface ScriptDataTypes {
     id: string | number,
     name: string,
-    image?: string,
     description: string[],
     max_loops: number,
-    action: Action,
+    action: MainContentTypes,
     build: Build,
-    script: Script[]
+    script: Script[],
+    window?: {
+        width: string | number,
+        height: string | number
+    };
 };
 
 export interface Print {

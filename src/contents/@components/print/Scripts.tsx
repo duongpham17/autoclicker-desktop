@@ -4,7 +4,7 @@ import {ScriptDataTypes, Script} from 'contents/@types';
 import {v4 as uuidv4} from 'uuid';
 import {shorten} from 'utils';
 import {BsArrowReturnRight, BsFillSquareFill} from 'react-icons/bs';
-import Menu from 'components/menu/Menu';
+import Menu from '@components/menu/Menu';
 
 interface Props {
     script: ScriptDataTypes,

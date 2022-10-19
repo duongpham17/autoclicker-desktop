@@ -3,7 +3,7 @@ import {useState} from 'react';
 import {preload} from 'third-party/electron';
 import {copyToClipboard} from 'utils';
 import {AiOutlineCopy, AiOutlineCheck} from 'react-icons/ai';
-import Button from 'components/buttons/Button';
+import {BsMouse2} from 'react-icons/bs';
 
 const Mouse = () => {
 
@@ -54,12 +54,13 @@ const Mouse = () => {
 
     return (
         <div className={`${styles.container} ${open && styles.open}`}>
+
             <div className={styles.controller}>
-                <p className={styles.title}>Get mouse position data</p>
+                <p><BsMouse2/> Mouse data</p>
                 <div>
-                    <Button label1={!intervalId ? "start" : "stop"} onClick={intervalId ? onStop : onStart} style={{"padding": "0.2rem", "width": "70px"}}/>
-                    <Button label1="clear" onClick={onClear} color="black" style={{"padding": "0.2rem", "width": "70px"}}/>
-                    <Button label1={!open ? "open" : "close"} color="black" onClick={onOpen} style={{"padding": "0.2rem", "width": "70px"}}/>
+                    <button onClick={intervalId ? onStop : onStart}>{!intervalId ? "start" : "stop"} </button>
+                    <button onClick={onClear}>clear</button>
+                    <button onClick={onOpen}>{!open ? "open" : "close"}</button>
                 </div>
             </div>
 
@@ -77,6 +78,7 @@ const Mouse = () => {
                     </button>
                 )}
             </div>
+
         </div>
     )
 }
