@@ -15,14 +15,15 @@
         }
     }
 
-    .btn:focus + .menu, .menu:hover{
+    .btn:focus + .menu{
         display: block;
     }
+    
     .btn:focus + .btn:active{
         display: none;
     }
-    .menu:focus{
-        display: none;
+    .menu:active{
+        display: block;
     }
 
     .menu{

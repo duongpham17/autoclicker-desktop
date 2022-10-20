@@ -39,12 +39,10 @@ const Build = ({values, onSetValue, viewing}: Props) => {
     };
 
     const onAddScript = () => {
-        let name = scriptActions.name;
-        if(!name) name = uuidv4();
         const script = { 
             ...scriptActions, 
             id: uuidv4(),
-            name, 
+            name: scriptActions.name || uuidv4().substring(0, 12)
         };
         onSetValue({script: [...values.script, script] });
         setScriptActions(scriptInitialState);
@@ -53,7 +51,7 @@ const Build = ({values, onSetValue, viewing}: Props) => {
     const onEditScript = () => {
         const script = {
             ...scriptActions, 
-            name: scriptActions.name || uuidv4(),
+            name: scriptActions.name || uuidv4().substring(0, 12),
             normal_x_coord: scriptActions.normal_x_coord as number, 
             normal_y_coord: scriptActions.normal_y_coord as number,
         };
@@ -88,6 +86,12 @@ const Build = ({values, onSetValue, viewing}: Props) => {
         onSetValue({script: data});
         setPosition(null);
     };
+
+    const onDuplicate = (script: Script, index: number) => {
+        const data = [...values.script];
+        data.splice(index+1, 0, {...script, id: uuidv4(), name: `${index+1}.${script.name}`});
+        onSetValue({script: data});
+    }
 
     return ( viewing === "script" ?
         <>
@@ -233,6 +237,7 @@ const Build = ({values, onSetValue, viewing}: Props) => {
                 {(script, index) => 
                     <>
                         <Button label1="edit" onClick={() => onSelectEditScript(script, index)} style={{"padding": "0.3rem", "fontSize": "0.9rem", "margin": "0.2rem 0"}}/>
+                        <Button label1="duplicate" onClick={() => onDuplicate(script, index)} style={{"padding": "0.3rem", "fontSize": "0.9rem", "margin": "0.2rem 0"}}/>
                         <Button label1="delete" color='red' onClick={() => onDeleteScript(index)}  style={{"padding": "0.3rem", "fontSize": "0.9rem", "margin": "0.2rem 0"}}/>
                     </>
                 }
