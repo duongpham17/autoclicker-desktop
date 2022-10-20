@@ -61,6 +61,8 @@ const Build = ({values, onSetValue, viewing}: Props) => {
         setEdit({selected: false, index: 0});
     };
 
+    console.log(values)
+
     const onDeleteScript = (index: number) => {
         const newScript = removeArrayObject(index, values.script);
         onSetValue(({script: newScript}));
@@ -163,8 +165,8 @@ const Build = ({values, onSetValue, viewing}: Props) => {
             {scriptActions.normal_events === "color" && 
                 <>
                     <Flex onContextMenu={() => onPaste("normal")}>
-                        <Input label1="X axis of color" type="number" placeholder='number' name="x_coord" value={scriptActions.normal_x_coord || ""} onChange={onChange}  />
-                        <Input label1="Y axis of color" type="number" placeholder='number' name="y_coord" value={scriptActions.normal_y_coord || ""} onChange={onChange} />
+                        <Input label1="X axis of color" type="number" placeholder='number' name="normal_x_coord" value={scriptActions.normal_x_coord || ""} onChange={onChange}  />
+                        <Input label1="Y axis of color" type="number" placeholder='number' name="normal_y_coord" value={scriptActions.normal_y_coord || ""} onChange={onChange} />
                         <Input label1="Hex color code" type="text" placeholder='...' name="pixel_color" value={scriptActions.pixel_color || ""} onChange={onChange} />
                     </Flex>
 
