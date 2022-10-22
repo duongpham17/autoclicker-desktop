@@ -5,7 +5,7 @@ import { RobotEvents } from 'contents/@robot/RobotEvents';
 import { v4 as uuidv4 } from 'uuid';
 import { updateArrayObject, removeArrayObject, readFromClipboard} from 'utils';
 
-import PrintScripts from 'contents/@components/print/Scripts';
+import PrintScripts from 'contents/@components/scripts/Scripts';
 import Flex from '@components/flex/Flex';
 import Button from '@components/buttons/Button'
 import Input from '@components/inputs/Input';
@@ -29,8 +29,8 @@ const Build = ({values, onSetValue, viewing}: Props) => {
 
     const [scriptActions, setScriptActions] = useState<Script>(scriptInitialState);
 
-    const onSelectScript = (updateobject: Partial<Script>) => {
-        setScriptActions(state => ({...state, ...updateobject}));
+    const onSelectScript = (s: Partial<Script>) => {
+        setScriptActions(state => ({...state, ...s}));
     };
 
     const onChange = (e: any) => {
@@ -48,20 +48,16 @@ const Build = ({values, onSetValue, viewing}: Props) => {
         setScriptActions(scriptInitialState);
     };
 
-    const onEditScript = () => {
+    const onUpdateEditedScript = () => {
         const script = {
             ...scriptActions, 
-            name: scriptActions.name || uuidv4().substring(0, 12),
-            normal_x_coord: scriptActions.normal_x_coord as number, 
-            normal_y_coord: scriptActions.normal_y_coord as number,
+            name: scriptActions.name || uuidv4().substring(0, 12)
         };
         const newScripts = updateArrayObject(values.script, edit.index, script);
         onSetValue({script: newScripts});
         setScriptActions(scriptInitialState);
         setEdit({selected: false, index: 0});
     };
-
-    console.log(values)
 
     const onDeleteScript = (index: number) => {
         const newScript = removeArrayObject(index, values.script);
@@ -87,6 +83,7 @@ const Build = ({values, onSetValue, viewing}: Props) => {
         data.splice(index, 0, item);
         onSetValue({script: data});
         setPosition(null);
+        setScriptActions(scriptInitialState)
     };
 
     const onDuplicate = (script: Script, index: number) => {
@@ -129,18 +126,32 @@ const Build = ({values, onSetValue, viewing}: Props) => {
             
             {scriptActions.normal_events === "move" && 
                 <Flex onContextMenu={() => onPaste("normal")}>
-                    <Input label1="X axis" type="number" placeholder='number' name="x_coord" value={scriptActions.normal_x_coord || ""} onChange={onChange}  />
-                    <Input label1="Y axis" type="number" placeholder='number' name="y_coord" value={scriptActions.normal_y_coord || ""} onChange={onChange} />
+                    <Input label1="X axis" type="number" placeholder='number' name="normal_x_coord" value={scriptActions.normal_x_coord || ""} onChange={onChange}  />
+                    <Input label1="Y axis" type="number" placeholder='number' name="normal_y_coord" value={scriptActions.normal_y_coord || ""} onChange={onChange} />
                 </Flex>
             }
 
             {scriptActions.normal_events === "keyboard" &&
                 <Flex>
                     <Input label1="Keyboard key" label2={<a href={"http://robotjs.io/docs/syntax#keys"} target="_blank" rel="noreferrer">( keys )</a>} 
-                        type="text" placeholder='key' name="keyboard" value={scriptActions.normal_keyboard || ""} onChange={onChange} 
+                        type="text" placeholder='key' name="normal_keyboard" value={scriptActions.normal_keyboard || ""} onChange={onChange} 
                     />
                 </Flex> 
             }        
+
+            {scriptActions.normal_events === "keyboard toggle" &&
+                <>
+                    <Flex>
+                        <Input label1="Keyboard key" label2={<a href={"http://robotjs.io/docs/syntax#keys"} target="_blank" rel="noreferrer">( keys )</a>} 
+                            type="text" placeholder='key' name="normal_keyboard" value={scriptActions.normal_keyboard || ""} onChange={onChange} 
+                        />
+                    </Flex> 
+                    <Flex>
+                        <Button label1="Down toggle" onClick={() => onSelectScript({normal_keyboard_toggle: "down"})} selected={scriptActions.normal_keyboard_toggle === "down"}/>
+                        <Button label1="Up toggle" onClick={() => onSelectScript({normal_keyboard_toggle: "up"})} selected={scriptActions.normal_keyboard_toggle === "up"} />
+                    </Flex>
+                </>
+            }      
 
             {scriptActions.normal_events === "typing" &&
                 <Flex>
@@ -151,8 +162,8 @@ const Build = ({values, onSetValue, viewing}: Props) => {
             {scriptActions.normal_events === "move click" &&
                 <>
                     <Flex onContextMenu={() => onPaste("normal")}>
-                        <Input label1="X axis" type="number" placeholder='number' name="x_coord" value={scriptActions.normal_x_coord || ""} onChange={onChange}  />
-                        <Input label1="Y axis" type="number" placeholder='number' name="y_coord" value={scriptActions.normal_y_coord || ""} onChange={onChange} />
+                        <Input label1="X axis" type="number" placeholder='number' name="normal_x_coord" value={scriptActions.normal_x_coord || ""} onChange={onChange}  />
+                        <Input label1="Y axis" type="number" placeholder='number' name="normal_y_coord" value={scriptActions.normal_y_coord || ""} onChange={onChange} />
                     </Flex>
                     <Flex>
                         <Button label1="Left click" onClick={() => onSelectScript({normal_mouse_click: "left"})} selected={scriptActions.normal_mouse_click === "left"} />
@@ -172,7 +183,7 @@ const Build = ({values, onSetValue, viewing}: Props) => {
 
                     <Select label1='If color matches use a script' items={RobotEvents} selected={scriptActions.pixel_color_robot} style={{"marginBottom": "0.5rem"}}>
                         {(RobotEvents) => 
-                            RobotEvents.filter(el => el.events !== "color" && el.events !== "empty").map(el => 
+                            RobotEvents.filter(el => el.events !== "color").map(el => 
                                 <List value={el.name} hover={el.description} onClick={() => onSelectScript({pixel_color_robot: el.robot, pixel_color_events: el.events})} key={el.id} />
                             )
                         }
@@ -208,6 +219,20 @@ const Build = ({values, onSetValue, viewing}: Props) => {
                         </Flex> 
                     }        
 
+                    {scriptActions.pixel_color_events === "keyboard toggle" &&
+                        <>
+                            <Flex>
+                                <Input label1="Keyboard key" label2={<a href={"http://robotjs.io/docs/syntax#keys"} target="_blank" rel="noreferrer">( keys )</a>} 
+                                    type="text" placeholder='key' name="pixel_color_keyboard" value={scriptActions.pixel_color_keyboard || ""} onChange={onChange} 
+                                />
+                            </Flex> 
+                            <Flex>
+                                <Button label1="Down toggle" onClick={() => onSelectScript({pixel_color_keyboard_toggle: "down"})} selected={scriptActions.pixel_color_keyboard_toggle === "down"}/>
+                                <Button label1="Up toggle" onClick={() => onSelectScript({pixel_color_keyboard_toggle: "up"})} selected={scriptActions.pixel_color_keyboard_toggle === "up"} />
+                            </Flex>
+                        </>
+                    }      
+
                     {scriptActions.pixel_color_events === "typing" &&
                         <Flex>
                             <Input label1="Words to be typed" type="text" placeholder='...' name="pixel_color_words" value={scriptActions.pixel_color_words || ""} onChange={onChange} />
@@ -231,11 +256,11 @@ const Build = ({values, onSetValue, viewing}: Props) => {
             }
 
             {scriptActions.normal_robot &&
-                <Button color="dark" label1={!edit.selected ? "Add script" : "Update Script"} onClick={!edit.selected ? onAddScript : onEditScript} style={{"margin" : "1rem 0"}} />
+                <Button color="dark" label1={!edit.selected ? "Add script" : "Update Script"} onClick={!edit.selected ? onAddScript : onUpdateEditedScript} style={{"margin" : "1rem 0"}} />
             }
 
 
-            <PrintScripts script={values} onSelectScript={(_, index) => onPosition(index)} selected={position}>
+            <PrintScripts data={values} onSelectScript={(_, index) => onPosition(index)} selected={position}>
                 {(script, index) => 
                     <>
                         <Button label1="edit" onClick={() => onSelectEditScript(script, index)} style={{"padding": "0.3rem", "fontSize": "0.9rem", "margin": "0.2rem 0"}}/>

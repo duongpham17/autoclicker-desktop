@@ -1,6 +1,12 @@
-export const shorten = (text: string, length: number = 20): string => text.length >= length ? `${text.substring(0, length).trim()}...` : text;
+export const shorten = (text: string | undefined | null, length: number = 20): string => {
+    if(!text) return "";
+    return text.length >= length ? `${text.substring(0, length).trim()}...` : text;
+}
 
-export const middleElipses = (text: string, start=4, end=4) => `${text.slice(0, start)}...${text.slice(-end)}`;
+export const middleElipses = (text: string, start=4, end=4, max=12) => {
+    if(text.length <= max) return text;
+    return `${text.slice(0, start)}...${text.slice(-end)}`;
+}
 
 export const copyToClipboard = (data: any) => {
     if(typeof data !== "string") return navigator.clipboard.writeText(JSON.stringify(data));

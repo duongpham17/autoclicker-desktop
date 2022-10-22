@@ -13,7 +13,7 @@ const Scripts = () => {
     return (
         <SearchComponent initialData={c.scripts} dataKey="name">
             {(script) => script.map(el => 
-                <Button key={el.id} label1={shorten(el.name, 30)} color="light" onClick={() => c.onChangeMainContent("built", el)} style={{"marginBottom": "0.5rem"}} selected={c.script?.id === el.id}/> 
+                <Button key={el.id} label1={shorten(el.name, 15)} color="light" onClick={() => c.onChangeMainContent("built", el)} style={{"marginBottom": "0.5rem"}} selected={c.script?.id === el.id}/> 
             )}
         </SearchComponent>
     )

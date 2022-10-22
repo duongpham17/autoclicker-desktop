@@ -6,7 +6,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     label2?: string | React.ReactNode;
     selected?: boolean,
     labelClicked?: string,
-    color?: "bright" | "red" | "dark" | "light",
+    color?: "bright" | "red" | "dark" | "light" | "black",
 };
 
 const Button = ({label1, label2, labelClicked, color, selected, ...props}: Props) => {

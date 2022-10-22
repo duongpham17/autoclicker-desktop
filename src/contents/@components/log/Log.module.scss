@@ -1,0 +1,60 @@
+.container{
+    max-height: 100%;
+    overflow-y: auto;
+    margin-top: 0.5rem;
+    padding-bottom: 12rem;
+    
+    .element{
+        border-left: 2px solid white;
+        border-right: 2px solid white;
+        padding: 0.5rem;
+        margin: 0.5rem 0;
+
+        &:hover{
+            border-color: var(--clr-main);
+        }
+        
+        div{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        p{
+            display: flex;
+            align-items: center;
+            line-height: 1.3rem;
+        }
+        small{
+            font-size: 0.8rem;
+            color: var(--clr-light);
+        }
+        svg{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .iconArrow{
+            margin-right: 0.5rem;
+        }
+        .iconColor{
+            margin-left: 0.5rem;
+            border-radius: 50%;
+        }
+        .false{
+            color: var(--clr-red);
+        }
+        .true{
+            color: var(--clr-green)
+        }
+    }
+    .element:hover .action{
+        display: block;
+    }
+    .completed{
+        border-top: 2px solid white;
+    }
+}
+
+.padding{
+    padding-right: 0.3rem;
+}

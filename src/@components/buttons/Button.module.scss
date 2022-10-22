@@ -33,7 +33,7 @@
 
     }
 
-    .dark, .red, .bright{
+    .dark, .red, .bright, .black{
         p, svg, span{
             color: white;
         }
@@ -46,6 +46,10 @@
         &:hover{
             opacity: 0.8;
         }
+    }
+    .black{
+        background-color: black;
+        border: 2px solid var(--clr-dark-transparent) ;
     }
     .light{
         background-color: var(--clr-light-transparent);

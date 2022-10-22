@@ -1,4 +1,4 @@
-import {Script, Robot_Events, Robot_Actions} from '../@types';
+import {Script, Robot_Events, Robot_Actions, PrintLogsTypes} from '../@types';
 import {preload} from 'third-party/electron';
 
 interface Props {
@@ -78,7 +78,7 @@ export const RobotEvents:Props[] = [
         name: "Key toggle",
         robot: "keyToggle",
         description: "Hold down or release a key",
-        events: "keyboard",
+        events: "keyboard toggle",
     },
     {
         id: 10,
@@ -92,79 +92,125 @@ export const RobotEvents:Props[] = [
         name: "Time filler",
         robot: "timeFiller",
         description: "Does nothing",
-        events: "empty",
+        events: "time",
+    },
+    {
+        id: 13,
+        name: "Restart",
+        robot: "restart",
+        description: "Restart loop instantly",
+        events: "restart",
     }
     
-]
+];
 
-export const RobotActions = (s: Script) => {
-    const {robot} = preload;
+const {robot} = preload;
 
-    let log: string = "" // customise print;
+export const RobotActions = (s: Script, seconds: number): PrintLogsTypes => {
     
+    const log: PrintLogsTypes = {
+        id: s.id!,
+        name: s.name,
+        start: s.start,
+        loop_remainder: s.loop_remainder || 0,
+        pixel_color: s.pixel_color || "",
+        normal_event: s.normal_events || null,
+        normal_robot: s.normal_robot,
+        normal_log: "",
+        pixel_color_robot: s.pixel_color_robot || null,
+        pixel_color_log: "",
+        pixel_color_detected: false,
+    };
 
-    if(s.normal_robot === "getPixelColor"){
+    if(s.start !== seconds) return log; 
 
-        const isColor = robot[s.normal_robot](s.normal_x_coord, s.normal_y_coord) === s.pixel_color;
+    const NORMAL_ROBOT_ACTION = robot[s.normal_robot!];
 
-        if(isColor) setTimeout(() => {
-            if(s.pixel_color_robot) {
-                if(s.pixel_color_events === "move") robot[s.pixel_color_robot](s.pixel_color_x_coord, s.pixel_color_y_coord);
-                if(s.pixel_color_events === "click") robot[s.pixel_color_robot](s.pixel_color_mouse_click);
-                if(s.pixel_color_events === "toggle") robot[s.pixel_color_robot](s.pixel_color_mouse_toggle);
-                if(s.pixel_color_events === "typing") robot[s.pixel_color_robot](s.normal_words);
-                if(s.pixel_color_events === "keyboard") robot[s.pixel_color_robot](s.pixel_color_keyboard);
-                if(s.pixel_color_events === "move click") {
-                    robot.moveMouse(s.pixel_color_x_coord, s.pixel_color_y_coord);
-                    setTimeout(() => robot.mouseClick(s.pixel_color_mouse_click), 100);
-                    log = `{ x: ${s.pixel_color_x_coord}, y: ${s.pixel_color_y_coord} } - ${s.pixel_color_mouse_click}`;
-                }
-            }
-        }, 0);
-
-        log = isColor ? "true" : "false";
-    }
-
-    if(s.normal_robot === "moveMouseAndClick"){
+    if(s.normal_events === "click"){
+        NORMAL_ROBOT_ACTION(s.normal_mouse_click);
+        log.normal_log  = `${s.normal_mouse_click} click`
+    };
+    if(s.normal_events === "toggle"){
+        NORMAL_ROBOT_ACTION(s.normal_mouse_toggle);
+        log.normal_log  = `${s.normal_mouse_toggle} toggle`
+    };
+    if(s.normal_events === "move"){
+        NORMAL_ROBOT_ACTION(s.normal_x_coord, s.normal_y_coord);
+        log.normal_log  = `x: ${s.normal_x_coord}, y: ${s.normal_y_coord}`;
+    };
+    if(s.normal_events === "keyboard"){
+        NORMAL_ROBOT_ACTION(s.normal_keyboard);
+        log.normal_log = `${s.normal_keyboard}`
+    };
+    if(s.normal_events === "keyboard toggle"){
+        NORMAL_ROBOT_ACTION(s.normal_keyboard, s.normal_keyboard_toggle);
+        log.normal_log = `${s.normal_keyboard} , ${s.normal_mouse_toggle}`
+    };
+    if(s.normal_events === "typing"){
+        NORMAL_ROBOT_ACTION(s.normal_words);
+        log.normal_log  = `${s.normal_words}`
+    };
+    if(s.normal_events === "move click"){
         robot.moveMouse(s.normal_x_coord, s.normal_y_coord);
         setTimeout(() => robot.mouseClick(s.normal_mouse_click), 100);
-        log = `{ x: ${s.normal_x_coord}, y: ${s.normal_y_coord} } - ${s.normal_mouse_click}`;
+        log.normal_log = `x: ${s.normal_x_coord}, y: ${s.normal_y_coord}, ${s.normal_mouse_click}`;
+    };
+    if(s.normal_events === "time"){
+        log.normal_log = ". . . . .";
+    };
+    if(s.normal_events === "restart"){
+        log.normal_log = "!";
     };
 
-    if(s.normal_robot === "timeFiller"){
-        log = "time filler";
-    };
+    const isColorRobot = s.normal_events === "color";
 
-    if(s.normal_robot === "mouseClick"){
-        robot[s.normal_robot](s.normal_mouse_click);
-        log = `click ${s.normal_mouse_click}`
-    };
+    if(!isColorRobot) return log;
+
+    log.normal_log = `x: ${s.normal_x_coord}, y: ${s.normal_y_coord}`;
+
+    const isColor = robot[s.normal_robot!](s.normal_x_coord, s.normal_y_coord) === s.pixel_color;
+
+    log.pixel_color_detected = isColor;
+
+    if(!isColor) return log;
+
+    const PIXEL_ROBOT_ACTION = robot[s.pixel_color_robot!];
     
-    if(s.normal_robot=== "mouseToggle"){
-        robot[s.normal_robot](s.normal_mouse_toggle);
-        log = `toggle ${s.normal_mouse_toggle}`
+    if(s.pixel_color_events === "move") {
+        PIXEL_ROBOT_ACTION(s.pixel_color_x_coord, s.pixel_color_y_coord);
+        log.pixel_color_log = `x: ${s.pixel_color_x_coord}, y: ${s.pixel_color_y_coord}, ${s.pixel_color_mouse_click}`;
+    }
+    if(s.pixel_color_events === "click") {
+        PIXEL_ROBOT_ACTION(s.pixel_color_mouse_click);
+        log.pixel_color_log = s.pixel_color_mouse_click || "left";
+    }
+    if(s.pixel_color_events === "toggle") {
+        PIXEL_ROBOT_ACTION(s.pixel_color_mouse_toggle || "down");
+        log.pixel_color_log = s.pixel_color_mouse_toggle || "down";
+    }
+    if(s.pixel_color_events === "typing") {
+        PIXEL_ROBOT_ACTION(s.pixel_color_words);
+        log.pixel_color_log = s.pixel_color_words || "";
+    }
+    if(s.pixel_color_events === "keyboard") {
+        PIXEL_ROBOT_ACTION(s.pixel_color_keyboard);
+        log.pixel_color_log = s.pixel_color_keyboard || "";
+    }
+    if(s.normal_events === "keyboard toggle"){
+        PIXEL_ROBOT_ACTION(s.pixel_color_keyboard, s.pixel_color_keyboard_toggle);
+        log.normal_log = `${s.pixel_color_keyboard} , ${s.pixel_color_keyboard_toggle} `
+    };
+    if(s.pixel_color_events === "move click") {
+        robot.moveMouse(s.pixel_color_x_coord, s.pixel_color_y_coord);
+        setTimeout(() => robot.mouseClick(s.pixel_color_mouse_click), 100);
+        log.pixel_color_log = `x: ${s.pixel_color_x_coord}, y: ${s.pixel_color_y_coord}, ${s.pixel_color_mouse_click}`
+    };
+    if(s.pixel_color_events === "restart") {
+        log.pixel_color_log = "!";
+    };  
+    if(s.pixel_color_events === "time"){
+        log.normal_log = ". . . . .";
     };
 
-    if(s.normal_robot=== "getMousePos"){
-        const {x, y} = robot[s.normal_robot]();
-        log = `{ x: ${x}, y: ${y} }`;
-    };
-
-    if(s.normal_robot=== "moveMouse" || s.normal_robot=== "moveMouseSmooth" || s.normal_robot=== "dragMouse" || s.normal_robot=== "scrollMouse"){
-        robot[s.normal_robot](s.normal_x_coord, s.normal_y_coord);
-        log = `{ x: ${s.normal_x_coord}, y: ${s.normal_y_coord} }`;
-    };
-
-    if(s.normal_robot=== "keyToggle" || s.normal_robot=== "keyTap"){
-        robot[s.normal_robot](s.normal_keyboard);
-        if(s.normal_robot=== "keyToggle") log = `toggle ${s.normal_keyboard}`
-        if(s.normal_robot=== "keyTap") log = `tap ${s.normal_keyboard}`
-    };
-    
-    if(s.normal_robot=== "typeString"){
-        robot[s.normal_robot](s.normal_words);
-        log = `${s.normal_words}`
-    };
-
-    return log
+    return log;
 }

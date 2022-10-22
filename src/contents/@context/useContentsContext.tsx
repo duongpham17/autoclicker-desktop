@@ -1,5 +1,5 @@
 import {createContext, ReactNode, useEffect, useState, useCallback, Dispatch, SetStateAction} from 'react';
-import {MainContentTypes, ScriptDataTypes, PrintActions, Script} from '../@types';
+import {MainContentTypes, ScriptDataTypes, PrintLogsTypes} from '../@types';
 import {scriptDataInitialState} from '../@states';
 import {prebuilt} from 'contents/@robot/PrebuiltScripts';
 import {RobotActions} from '../@robot/RobotEvents';
@@ -15,10 +15,10 @@ export interface PropsTypes {
     setScripts: Dispatch<SetStateAction<ScriptDataTypes[]>>,
     intervalId: any,
     setIntervalId: Dispatch<SetStateAction<any>>,
-    print: PrintActions[],
-    setPrint: Dispatch<SetStateAction<PrintActions[]>>
-    looped: string,
-    setLooped: Dispatch<SetStateAction<string>>,
+    print: PrintLogsTypes[],
+    setPrint: Dispatch<SetStateAction<PrintLogsTypes[]>>
+    looped: number,
+    setLooped: Dispatch<SetStateAction<number>>,
     onClear: () => void,
     onStartScript: () => void,
     onStopScript: (on?: "stop" | "pause") => void,
@@ -39,7 +39,7 @@ export const Context = createContext<PropsTypes>({
     setIntervalId: () => null,
     print: [],
     setPrint: () => null,
-    looped: "looped 0",
+    looped: 0,
     setLooped: () => null,
     onClear: () => null,
     onStartScript: () => null,
@@ -58,9 +58,9 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
 
     const [script, setScript] = useState<ScriptDataTypes>(scriptDataInitialState);
 
-    const [print, setPrint] = useState<PrintActions[]>([]);
+    const [print, setPrint] = useState<PrintLogsTypes[]>([]);
 
-    const [looped, setLooped] = useState<string>("Looped 0");
+    const [looped, setLooped] = useState<number>(0);
 
     const [scripts, setScripts] = useState<ScriptDataTypes[]>(() => {
         const storage = localStorage.getItem("scripts");
@@ -69,53 +69,75 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
 
     const onClear = () => {
         setPrint([]);
-        setLooped("Looped 0");
+        setLooped(0);
     };
 
     const onStartScript = (): void => {
-        if(!script.name) return;
+        if(!script) return;
 
-        onClear();
+        const SCRIPT_TIMERS_ARRAY = script.script.map(el => el.start);
+        const MAX_DURATION = SCRIPT_TIMERS_ARRAY.slice(-1)[0];
+        let LOOPED = 0;
+        let SECONDS = 0;
 
-        const duration = Number(script.script.slice(-1)[0].start) * 1000 || 1000;
-
-        let loops = 0;
-
-        let interval: any = "";
-
-        const action = (spt: Script, loop: number): void => {
-            if(spt.loop_remainder && (loop % spt.loop_remainder) === 0) return;
-            setTimeout(() => {
-                const log = RobotActions(spt);
-                const last_iteration = script.script.slice(-1)[0].id === spt.id;
-                if(last_iteration){
-                    const completed_log = {
-                        normal_robot: null, 
-                        log: `--------------- ${(new Date()).toLocaleTimeString()} ---------------`, 
-                        name: `Completed ${loop}`, 
-                        start: -1 // show no number in the terminal
-                    };
-                    return setPrint((print) => [completed_log, {...spt, log}, ...print].slice(0, 100));
-                };
-                setPrint((print) => [{...spt, log}, ...print].slice(0, 100));
-            }, Number(spt.start) * 1000);
+        const completed = (l: number, log?: PrintLogsTypes) => {
+            LOOPED += 1;
+            const completed_log = {
+                id: `${LOOPED}`,
+                name: `Completed ${LOOPED}`,
+                start: -1,
+                loop_remainder: 0,
+                pixel_color: "",
+                normal_event: null,
+                normal_robot: null,
+                normal_log: `${(new Date()).toLocaleTimeString()} | Took ${SECONDS}s`,
+                pixel_color_robot: null,
+                pixel_color_log: "",
+                pixel_color_detected: false,
+            };            
+            SECONDS = 0;
+            setLooped(l+1);
+            if(log) return setPrint(state => [completed_log, log, ...state].slice(0, 100));
+            setPrint(state => [completed_log, ...state].slice(0, 100));
         };
 
-        const startActions = () => {
-            setLooped(`Looped ${loops} / ${script.max_loops}`);
-            if(loops >= Number(script.max_loops)) {
+        let interval = setInterval(() => {
+
+            SECONDS = Math.round((SECONDS+0.1) * 100) / 100;
+
+            if(script.max_loops === LOOPED) {
+                setIntervalId(null);
                 clearInterval(interval);
-                setIntervalId(null)
-                setStart("pause");
-                return;
-            }
-            for(let x of script.script) action(x, loops+1);
-            loops++;
-        };
-        startActions();
-        interval = setInterval(startActions, duration);
+            };
+
+            const index = SCRIPT_TIMERS_ARRAY.indexOf(SECONDS);
+            const script_to_run = script.script[index];
+            const isIndex = index !== -1;
+
+            if(isIndex) {   
+
+                const {loop_remainder} = script_to_run;
+
+                if(loop_remainder !== 0) {
+                    if( (LOOPED+1) % loop_remainder !== 0) return; 
+                }
+
+                const log = RobotActions(script_to_run, SECONDS);
+
+                if(log.normal_robot === "restart" || log.pixel_color_robot === "restart") return completed(LOOPED, log);
+
+                setPrint(state => [log,...state].slice(0, 100));
+            };
+            
+            const isLastIteration = SECONDS >= MAX_DURATION;
+
+            if(isLastIteration) completed(LOOPED);
+
+        }, 100);
+
         setIntervalId(interval);
-        if(start !== "start") setStart("start")
+        setStart("start");
+        onClear();
     };
 
     const onStopScript = useCallback((on?: "stop" | "pause"): void => {

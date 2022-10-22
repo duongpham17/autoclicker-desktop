@@ -1,0 +1,55 @@
+.container{
+    
+    .element{
+        border-left: 2px solid var(--clr-light);
+        border-right: 2px solid var(--clr-light);
+        margin: 0.5rem 0;
+        padding: 0.3rem 0.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &:hover{
+            border-color: var(--clr-main);
+        }
+
+        .index{
+            margin-right: 0.5rem;
+            font-weight: 200;
+            width: 20px;
+        }
+
+        .script{
+            width: 100%;
+            div{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                p{
+                    display: flex;         
+                    align-items: center;
+                    line-height: 1.3rem;
+                }
+                small{               
+                    font-size: 0.9rem;
+                    color: var(--clr-light);
+                }
+                .iconArrow{
+                    margin-right: 0.5rem;
+                }
+                .iconColor{
+                    margin-left: 0.5rem;
+                    border-radius: 50%;
+                }
+            }
+
+
+        }
+
+    }
+
+    .selected{
+        border-color: var(--clr-main);
+    }
+}

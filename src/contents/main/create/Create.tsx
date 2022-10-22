@@ -31,7 +31,7 @@ export interface CreatePropsTypes {
 
 const Create = () => {
 
-    const {setScript, script, setScripts, scripts} = useContext(Context);
+    const {setScript, script, setScripts, scripts, setMainContent} = useContext(Context);
 
     const [viewing, setViewing] = useState<"script" | "description">("script");
 
@@ -89,10 +89,12 @@ const Create = () => {
         
         const newScripts = removeArrayObject(script_index, scripts);
         setScripts(newScripts);
-        setScript(scriptDataInitialState)
+        setScript(scriptDataInitialState);
+        setMainContent(null);
 
         const newStorageScripts = removeArrayObject(storage_index, parased_data);
         localStorage.setItem("scripts", JSON.stringify(newStorageScripts));
+
     };
 
     const onClearScript = () => {

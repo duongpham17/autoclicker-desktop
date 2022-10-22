@@ -11,7 +11,7 @@ const Navbar = () => {
 
     return (
         <>
-            <Button color="light" label1="Create script" label2={<BiPlus/>} onClick={() => c.onChangeMainContent("create")} style={{"marginBottom": "0.5rem"}} selected={c.script?.action === "create"}/>
+            <Button color="light" label1="Create" label2={<BiPlus/>} onClick={() => c.onChangeMainContent("create")} style={{"marginBottom": "0.5rem"}} selected={c.script?.action === "create"}/>
         </>
     )
 }

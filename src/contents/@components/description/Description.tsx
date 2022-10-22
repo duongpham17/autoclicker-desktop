@@ -2,7 +2,8 @@ import styles from './Description.module.scss';
 import React from 'react';
 import {v4 as uuidv4} from 'uuid';
 
-import Menu from '@components/menu/Menu'
+import Menu from '@components/menu/Menu';
+import Observer from '@components/observer/Observer';
 
 interface Props {
     data: string[],
@@ -17,25 +18,26 @@ const Description = ({data, position, onPosition, children, edit=false}: Props) 
   return (
     <div className={styles.container}>
         {data.map((el, index) => 
-            <div key={uuidv4()} className={`${styles.element} ${edit ? styles.edit : styles.plain} ${edit && index === position && styles.selected}`}>
-                <div className={styles.index} onClick={() => onPosition && onPosition(index)}>
-                    <p>{index+1}.</p>
-                </div>
-                <div className={styles.information} onClick={() => onPosition && onPosition(index)}>
-                    {el.slice(0, 5).includes("https") 
-                        ? <img src={el} alt="script" />
-                        : <p>{el}</p>  
+            <Observer key={uuidv4()}>
+                <div className={`${styles.element} ${edit ? styles.edit : styles.plain} ${edit && index === position && styles.selected}`}>
+                    <div className={styles.index} onClick={() => onPosition && onPosition(index)}>
+                        <p>{index+1}.</p>
+                    </div>
+                    <div className={styles.information} onClick={() => onPosition && onPosition(index)}>
+                        {el.slice(0, 5).includes("https") 
+                            ? <img src={el} alt="script" />
+                            : <p>{el}</p>  
+                        }
+                    </div>
+                    { children && 
+                        <Menu>
+                            {children(el, index)}
+                        </Menu>
                     }
                 </div>
-                { children && 
-                    <Menu>
-                        {children(el, index)}
-                    </Menu>
-                }
-            </div>
+            </Observer>
         )}
     </div>
-
   )
 }
 

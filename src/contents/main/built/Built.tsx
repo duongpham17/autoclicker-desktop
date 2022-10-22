@@ -5,7 +5,7 @@ import {preload} from 'third-party/electron';
 
 import useOpen from '@hooks/useOpen';
 
-import Scripts from 'contents/@components/print/Scripts';
+import Scripts from 'contents/@components/scripts/Scripts';
 import Flex from '@components/flex/Flex';
 import Button from '@components/buttons/Button';
 import ScriptDescription from 'contents/@components/description/Description';
@@ -39,7 +39,7 @@ const Built = () => {
             </Flex>
 
             { openValue === "scripts" &&
-                <Scripts script={c.script} />
+                <Scripts data={c.script} />
             }
         
             { openValue === "description" &&
