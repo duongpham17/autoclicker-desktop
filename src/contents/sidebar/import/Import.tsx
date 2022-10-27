@@ -17,6 +17,7 @@ const Import = () => {
             if(!string) return 
             const data:ScriptDataTypes = JSON.parse(string);
             if(!data) return;
+            if(data.name === null || !data.name) return;
             data.id = uuidv4();
             data.name = `${data.name} ${uuidv4().slice(0, 3)}`;
             data.build = "custom";

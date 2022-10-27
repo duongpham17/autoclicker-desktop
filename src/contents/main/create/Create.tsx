@@ -107,6 +107,7 @@ const Create = () => {
             if(!string) return;
             const data = JSON.parse(string);
             if(!data) return;
+            if(data.name === null || !data.name) return;
             setValues({...data, build:"custom", action: "edit", id: uuidv4()});
             setEdited(true);
         } catch {
