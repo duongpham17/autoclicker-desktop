@@ -15,6 +15,7 @@ export const scriptInitialState: Script = {
     name: "",
     start: 0, // seconds
     loop_remainder: 0,
+    skip_remainder: 0,
 
     normal_robot: null,
     normal_events: null,

@@ -75,6 +75,12 @@ const Scripts = ({data, onSelectScript, children, selected}: Props) => {
                             </div>
                         }
 
+                        { !!el.skip_remainder &&
+                            <div>
+                                <p><BsArrowReturnRight className={styles.iconArrow} /> <small>skip at loop {el.skip_remainder}</small></p>
+                            </div>
+                        }
+
                         { el.normal_events === "color" &&
                             <div>
                                 <p><BsArrowReturnRight className={styles.iconArrow} /> <small> {el.pixel_color_robot} </small></p>

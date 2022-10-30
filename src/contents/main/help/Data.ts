@@ -62,6 +62,14 @@ export const help_data: Props[] = [
         link_url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder"
     },
     {
+        question: "What is skip at x loop ?",
+        answer: ` These scripts will not run if the remainder equals 0.
+        
+        The remainder operator (%) returns the remainder left over when one operand (loop) is divided by a second operand (x)
+        `,
+        link_url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Remainder"
+    },
+    {
         question: "Where to find more script command information ?",
         answer: "Link to robotjs",
         link_url: "http://robotjs.io/docs/syntax",

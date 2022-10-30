@@ -16,7 +16,8 @@ const autoclick: ScriptDataTypes = {
             start: 1,
             normal_robot: "mouseClick",
             normal_mouse_click: "left",
-            loop_remainder: 0
+            loop_remainder: 0,
+            skip_remainder: 0
         },
     ]
 }

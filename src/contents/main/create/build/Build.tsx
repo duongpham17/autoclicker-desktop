@@ -104,9 +104,13 @@ const Build = ({values, onSetValue, viewing}: Props) => {
             </Select>
 
             <Flex>
-                <Input label1="Script name" type="text" placeholder='...' name="name" value={scriptActions.name || ""} onChange={onChange} />
+                <Input label1="Script name" type="text" placeholder='...' name="name" value={scriptActions.name} onChange={onChange} />
                 <Input label1="Start in ( s )" type="number" placeholder='seconds' name="start" value={scriptActions.start || ""} onChange={onChange} />
-                <Input label1="Start at x loop" type="number" placeholder='x' name="loop_remainder" value={scriptActions.loop_remainder || ""} onChange={onChange}  />
+            </Flex>
+
+            <Flex>
+                <Input label1="Start at x loop" type="number" placeholder='...' name="loop_remainder" value={scriptActions.loop_remainder || ""} onChange={onChange}  />
+                <Input label1="Skip at x loop" type="number" placeholder='...' name="skip_remainder" value={scriptActions.skip_remainder || ""} onChange={onChange}  />
             </Flex>
 
             {scriptActions.normal_events === "click" && 

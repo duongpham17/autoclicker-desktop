@@ -43,6 +43,12 @@ const Log = ({data}: Props) => {
                                     <p><BsArrowReturnRight className={styles.iconArrow} /> <small>run at loop {el.loop_remainder}</small></p>
                                 </div>
                             }
+
+                            { !!el.skip_remainder &&
+                                <div>
+                                    <p><BsArrowReturnRight className={styles.iconArrow} /> <small>skip at loop {el.skip_remainder}</small></p>
+                                </div>
+                            }
     
                             { el.normal_event === "color" && 
                                 <div>

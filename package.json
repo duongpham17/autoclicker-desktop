@@ -60,8 +60,10 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^7.5.0",
     "electron": "^21.1.0",
     "electron-installer-dmg": "^4.0.0",
-    "electron-packager": "^16.0.0"
+    "electron-packager": "^16.0.0",
+    "wait-on": "^6.0.1"
   }
 }

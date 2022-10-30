@@ -9,6 +9,7 @@ export interface Script {
     name: string,
     start: number // seconds
     loop_remainder: number,
+    skip_remainder: number,
     log?: string
 
     normal_robot: Robot_Actions | null,
@@ -54,6 +55,7 @@ export interface PrintLogsTypes {
     name: string,
     start: number,
     loop_remainder: number,
+    skip_remainder: number,
     pixel_color: string,
     normal_event: Robot_Events,
     normal_robot: Robot_Actions | null,

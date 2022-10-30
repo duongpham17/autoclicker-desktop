@@ -113,6 +113,7 @@ export const RobotActions = (s: Script, seconds: number): PrintLogsTypes => {
         name: s.name,
         start: s.start,
         loop_remainder: s.loop_remainder || 0,
+        skip_remainder: s.skip_remainder || 0,
         pixel_color: s.pixel_color || "",
         normal_event: s.normal_events || null,
         normal_robot: s.normal_robot,

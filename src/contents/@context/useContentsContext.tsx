@@ -87,6 +87,7 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
                 name: `Completed ${LOOPED}`,
                 start: -1,
                 loop_remainder: 0,
+                skip_remainder: 0,
                 pixel_color: "",
                 normal_event: null,
                 normal_robot: null,
@@ -116,11 +117,15 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
 
             if(isIndex) {   
 
-                const {loop_remainder} = script_to_run;
+                const {loop_remainder, skip_remainder} = script_to_run;
 
                 if(loop_remainder !== 0) {
                     if( (LOOPED+1) % loop_remainder !== 0) return; 
-                }
+                };
+
+                if(skip_remainder !== 0) {
+                    if( (LOOPED+1) % skip_remainder !== 0) return;
+                };
 
                 const log = RobotActions(script_to_run, SECONDS);
 
