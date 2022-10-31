@@ -1,7 +1,6 @@
 import {createContext, ReactNode, useEffect, useState, useCallback, Dispatch, SetStateAction} from 'react';
 import {MainContentTypes, ScriptDataTypes, PrintLogsTypes} from '../@types';
 import {scriptDataInitialState} from '../@states';
-import {prebuilt} from 'contents/@robot/PrebuiltScripts';
 import {RobotActions} from '../@robot/RobotEvents';
 
 export interface PropsTypes {
@@ -64,7 +63,7 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
 
     const [scripts, setScripts] = useState<ScriptDataTypes[]>(() => {
         const storage = localStorage.getItem("scripts");
-        return storage !== null ? [...JSON.parse(storage), ...prebuilt] : prebuilt
+        return storage !== null ? [...JSON.parse(storage)] : []
     });
 
     const onClear = () => {
@@ -123,7 +122,7 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
                     if( (LOOPED+1) % loop_remainder !== 0) return; 
                 };
 
-                if(skip_remainder !== 0) {
+                if(skip_remainder && skip_remainder !== 0) {
                     if( (LOOPED+1) % skip_remainder !== 0) return;
                 };
 
