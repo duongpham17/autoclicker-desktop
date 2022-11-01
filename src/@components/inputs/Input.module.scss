@@ -9,11 +9,16 @@
         border-radius: 5px;
         margin-bottom: 0.5rem;
         box-sizing: border-box;
-
+        
         &:hover{
             border-color: var(--clr-main);
         }
     }
+    input[type="color"] {
+        -webkit-appearance: none;
+        height: 40px;
+        cursor: pointer;
+    };
 
     label{
         width: 100%;

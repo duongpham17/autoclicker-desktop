@@ -11,7 +11,7 @@
         margin: 0.5rem 0;
 
         &:hover{
-            border-color: var(--clr-main);
+            border-color: var(--clr-main) !important;
         }
         
         div{

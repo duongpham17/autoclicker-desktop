@@ -87,6 +87,7 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
                 start: -1,
                 loop_remainder: 0,
                 skip_remainder: 0,
+                border_color: "",
                 pixel_color: "",
                 normal_event: null,
                 normal_robot: null,

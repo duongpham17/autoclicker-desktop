@@ -34,7 +34,7 @@ const Build = ({values, onSetValue, viewing}: Props) => {
     };
 
     const onChange = (e: any) => {
-        if(e.target.type === "text") setScriptActions({...scriptActions, [e.target.name] : e.target.value}); 
+        if(e.target.type === "text" || e.target.type === "color") setScriptActions({...scriptActions, [e.target.name] : e.target.value}); 
         if(e.target.type === "number") setScriptActions({...scriptActions, [e.target.name] : Number(e.target.value)});
     };
 
@@ -90,7 +90,7 @@ const Build = ({values, onSetValue, viewing}: Props) => {
         const data = [...values.script];
         data.splice(index+1, 0, {...script, id: uuidv4(), name: `${index+1}.${script.name}`});
         onSetValue({script: data});
-    }
+    };
 
     return ( viewing === "script" ?
         <>
@@ -106,6 +106,7 @@ const Build = ({values, onSetValue, viewing}: Props) => {
             <Flex>
                 <Input label1="Script name" type="text" placeholder='...' name="name" value={scriptActions.name} onChange={onChange} />
                 <Input label1="Start in ( s )" type="number" placeholder='seconds' name="start" value={scriptActions.start || ""} onChange={onChange} />
+                <Input label1="Border color" type="color" name="border_color" value={scriptActions.border_color} onChange={onChange} />
             </Flex>
 
             <Flex>

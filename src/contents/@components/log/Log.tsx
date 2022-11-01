@@ -14,7 +14,7 @@ const Log = ({data}: Props) => {
             <div className={`${styles.container} ${data.length >= 10 && styles.padding}`}>
                 {data.map((el, index) => 
                     <Observer key={index}>
-                        <div className={`${styles.element} ${el.start === -1 && styles.completed} ${styles[`box${index}`]}`}>
+                        <div className={`${styles.element} ${el.start === -1 && styles.completed} ${styles[`box${index}`]}`} style={{"borderColor": el.border_color}}>
     
                             <div>
                                 <p>{el.name}</p>

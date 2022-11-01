@@ -10,14 +10,14 @@
         align-items: center;
         justify-content: space-between;
 
-        &:hover{
-            border-color: var(--clr-main);
-        }
-
         .index{
             margin-right: 0.5rem;
             font-weight: 200;
             width: 20px;
+        }
+
+        &:hover{
+            border-color: var(--clr-main);
         }
 
         .script{
@@ -50,6 +50,6 @@
     }
 
     .selected{
-        border-color: var(--clr-main);
+        border: 2px solid red;
     }
 }

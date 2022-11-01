@@ -112,6 +112,7 @@ export const RobotActions = (s: Script, seconds: number): PrintLogsTypes => {
         id: s.id!,
         name: s.name,
         start: s.start,
+        border_color: s.border_color || "white",
         loop_remainder: s.loop_remainder || 0,
         skip_remainder: s.skip_remainder || 0,
         pixel_color: s.pixel_color || "",

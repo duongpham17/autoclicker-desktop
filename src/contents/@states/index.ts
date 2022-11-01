@@ -16,6 +16,7 @@ export const scriptInitialState: Script = {
     start: 0, // seconds
     loop_remainder: 0,
     skip_remainder: 0,
+    border_color: "#FFFFFF",
 
     normal_robot: null,
     normal_events: null,

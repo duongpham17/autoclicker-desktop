@@ -4,6 +4,11 @@
   "description": "Autoclicker robots",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Tung D P",
+    "email": "development.test.only@gmail.co.uk",
+    "url": "https://autoclickers.co.uk"
+  },
   "dependencies": {
     "@jitsi/robotjs": "^0.6.10",
     "@testing-library/jest-dom": "^5.16.5",
@@ -29,7 +34,7 @@
   "scripts": {
     "dmg-mac": "electron-installer-dmg ./release-builds/Autoclicker-darwin-x64/Autoclicker.app Autoclicker Autoclicker --out=release-builds --overwrite --icon=assets/icons/mac/128x128.icns",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/128x128.icns --prune=true --out=release-builds",
-    "package-win": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/128x128.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Autoclicker\"",
+    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/96x96.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Autoclicker\"",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
     "start": "react-scripts start",

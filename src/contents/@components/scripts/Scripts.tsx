@@ -20,7 +20,7 @@ const Scripts = ({data, onSelectScript, children, selected}: Props) => {
         <div className={styles.container}>
             {data.script.map((el, index) =>
                 <Observer key={el.id || uuidv4()}>
-                <div className={`${styles.element} ${selected === index && styles.selected}`} onClick={() => onSelectScript && onSelectScript(el, index)}>
+                <div style={{"borderColor": el.border_color || "white"}} className={`${styles.element} ${selected === index && styles.selected}`} onClick={() => onSelectScript && onSelectScript(el, index)}>
 
                     <div className={styles.index}>
                         <p>{index+1}.</p>
