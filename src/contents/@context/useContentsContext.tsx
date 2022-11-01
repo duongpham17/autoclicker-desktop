@@ -124,7 +124,7 @@ export const UseContentsContext = ({children}: {children: ReactNode}) => {
                 };
 
                 if(skip_remainder && skip_remainder !== 0) {
-                    if( (LOOPED+1) % skip_remainder !== 0) return;
+                    if( (LOOPED+1) % skip_remainder === 0) return;
                 };
 
                 const log = RobotActions(script_to_run, SECONDS);
